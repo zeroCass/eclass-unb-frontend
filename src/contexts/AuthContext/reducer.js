@@ -10,7 +10,7 @@ export const reducer = (state, action) => {
 			return newState
 		}
 		case types.AUTH_LOGOUT: {
-			return { ...state }
+			return { ...state, ...action.payload }
 		}
 	}
 	return { ...state }

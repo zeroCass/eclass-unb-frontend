@@ -6,8 +6,9 @@ import { MainLayout } from '../routes/MainLayout'
 
 export const MainRoute = () => (
 	<Routes>
-		<Route path="/" element={<MainLayout />}>
+		<Route element={<MainLayout />}>
 			<Route path="/" element={<Classes />} />
+			<Route path="/classes" element={<Classes />} />
 			<Route path="/questions" element={<Questions />} />
 			<Route path="/perfil/*">
 				<Route index element={<Perfil />} />
