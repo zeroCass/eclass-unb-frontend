@@ -1,24 +1,29 @@
-import logo from '../../assets/logo.svg'
-import './style.css'
+/*eslint-disable */
+import { useContext } from 'react'
+import { Navigate, Route, Routes } from 'react-router-dom'
+import { AuthContext } from '../../contexts/AuthContext/context'
+import { MainRoute } from '../../routes/MainRoute'
+import { RequireAuth } from '../../routes/RequireAuth'
+import { Login } from '../Login'
+import { Register } from '../Register'
 
 function App() {
+	const authContext = useContext(AuthContext)
+	const { authState } = authContext
 	return (
-		<div className="App">
-			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<p>
-					Edit <code>src/App.js</code> and save to reload.
-				</p>
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Learn React
-				</a>
-			</header>
-		</div>
+		<Routes>
+			<Route element={<RequireAuth />}>
+				<Route path="*" element={<MainRoute />} />
+			</Route>
+			<Route
+				path="/login"
+				element={authState.token ? <Navigate to={'/'} /> : <Login />}
+			/>
+			<Route
+				path="/register"
+				element={authState.token ? <Navigate to={'/'} /> : <Register />}
+			/>
+		</Routes>
 	)
 }
 
