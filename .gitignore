@@ -25,3 +25,4 @@ yarn-error.log*
 
 # other files
 folder_structure.txt
+*/_index.jsx
