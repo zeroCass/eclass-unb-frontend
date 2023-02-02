@@ -38,11 +38,6 @@
 	border-radius: 0px 10px 10px 0px;
 }
 
-.auth-img-container > img.authImage {
-	width: 382px;
-	height: 329px;
-}
-
 .auth-section form {
 	flex-grow: 1;
 	padding: 10px 20px;

@@ -1,0 +1,19 @@
+.role-choose h4 {
+	margin: 10px 0;
+	text-align: center;
+}
+
+.radio-buttons-container {
+	display: flex;
+	justify-content: space-around;
+	padding: 10px;
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 21px;
+	letter-spacing: 0.04em;
+	color: rgba(25, 51, 143, 0.8);
+}
+
+.radio-buttons-container label {
+	margin-left: 5px;
+}
