@@ -1,0 +1,129 @@
+/* div#root {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #e5e5e5;
+	width: 100vw;
+	height: 100vh;
+} */
+
+.login-section {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	width: 976px;
+	height: 540px;
+	background: #ffffff;
+	box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.15);
+	border-radius: 10px;
+}
+
+.login-section > div {
+	width: 50%;
+	height: 100%;
+}
+
+.login-container,
+.button-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.logo-container,
+.login-img-container,
+.button-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.logo-container {
+	flex-direction: column;
+	max-height: 50%;
+}
+
+.login-img-container {
+	background: linear-gradient(180deg, #19338f 0%, #90a2e4 100%);
+	border-radius: 0px 10px 10px 0px;
+}
+
+.login-img-container > img.loginImage {
+	width: 382px;
+	height: 329px;
+}
+
+.login-section form {
+	flex-grow: 1;
+	padding: 10px 20px;
+	display: flex;
+	flex-direction: column;
+}
+
+.text-field {
+	margin: 10px 0;
+	position: relative;
+	height: 40px;
+	border-bottom: 2px solid #adadad;
+}
+
+.text-field input {
+	width: 100%;
+	padding: 0 5px;
+	height: 40px;
+	font-size: 16px;
+	border: none;
+	background: none;
+	outline: none;
+}
+
+.text-field label {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 18px;
+	color: rgba(25, 51, 143, 0.8);
+	position: absolute;
+	top: 50%;
+	left: 5px;
+	transform: translateY(-50%);
+}
+
+.text-field input:focus ~ label,
+.text-field input:valid ~ label {
+	top: -5px;
+}
+
+.login-section form button {
+	margin: 20px 0;
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 23px;
+	line-height: 34px;
+	color: white;
+	width: 331px;
+	height: 61px;
+	background: linear-gradient(180deg, #19338f 0%, #90a2e4 100%);
+	border-radius: 10px;
+}
+
+.button-container a,
+.button-container a:visited {
+	text-decoration: none;
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 800;
+	font-size: 16px;
+	line-height: 24px;
+	color: inherit;
+}
+
+.button-container p:first-child a {
+	color: #2b2b2b;
+}
+
+.button-container p:last-child a {
+	color: #bababa;
+}
