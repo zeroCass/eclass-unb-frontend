@@ -1,0 +1,43 @@
+.button-container button {
+	margin: 20px 0;
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 23px;
+	line-height: 34px;
+	color: white;
+	width: 331px;
+	height: 61px;
+	background: linear-gradient(180deg, #19338f 0%, #90a2e4 100%);
+	border-radius: 10px;
+}
+
+.button-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.button-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.button-container a,
+.button-container a:visited {
+	text-decoration: none;
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 800;
+	font-size: 16px;
+	line-height: 24px;
+	color: inherit;
+}
+
+.button-container p:first-child a {
+	color: #2b2b2b;
+}
+
+.button-container p:last-child a {
+	color: #bababa;
+}
