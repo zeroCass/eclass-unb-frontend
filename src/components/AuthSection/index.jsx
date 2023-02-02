@@ -7,6 +7,7 @@ export const AuthSection = ({
 	handleSubmit,
 	formComponents,
 	buttonsContainer,
+	othersComponents,
 }) => {
 	return (
 		<section className="auth-section">
@@ -17,6 +18,7 @@ export const AuthSection = ({
 				</div>
 				<form onSubmit={handleSubmit}>
 					{formComponents}
+					{othersComponents}
 					{buttonsContainer}
 				</form>
 			</div>
