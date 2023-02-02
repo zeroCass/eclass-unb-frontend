@@ -2,6 +2,7 @@ import { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import loginImage from '../../assets/svg/loginImage.svg'
 import logo from '../../assets/svg/logoBlack.svg'
+import { TextInput } from '../../components/TextInput'
 import { login } from '../../contexts/AuthContext/actions'
 import { AuthContext } from '../../contexts/AuthContext/context'
 import './style.css'
@@ -25,28 +26,22 @@ export const Login = () => {
 					<h1>Log In</h1>
 				</div>
 				<form onSubmit={handleSubmit}>
-					<div className="text-field">
-						<input
-							type="text"
-							id="registrationID"
-							autoComplete="off"
-							onChange={(e) => setRegistrationID(e.target.value)}
-							value={registrationID}
-							required
-						/>
-						<label htmlFor="registrationID">Matrícula</label>
-					</div>
-					<div className="text-field">
-						<input
-							type="password"
-							id="password"
-							onChange={(e) => setPassword(e.target.value)}
-							value={password}
-							required
-						/>
-						<label htmlFor="password">Senha</label>
-					</div>
-
+					<TextInput
+						type="text"
+						id="registrationID"
+						onChange={(e) => setRegistrationID(e.target.value)}
+						value={registrationID}
+						required={true}
+						labelValue="Matrícula"
+					/>
+					<TextInput
+						type="password"
+						id="password"
+						onChange={(e) => setPassword(e.target.value)}
+						value={password}
+						required={true}
+						labelValue="Senha"
+					/>
 					<div className="button-container">
 						<button>Login</button>
 						<p>
