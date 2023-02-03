@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
+import { Button } from '../../../../components/Button'
 import styles from './style.module.css'
 
 export const ButtonsContainer = () => {
 	return (
 		<div className={styles['button-container']}>
-			<button>Login</button>
+			<Button margin={'20px 0'}>Login</Button>
 			<p>
 				<Link to="/register">Solicitar Cadastro</Link>
 			</p>
