@@ -9,7 +9,7 @@ export const ButtonsContainer = () => {
 				<Link to="/register">Solicitar Cadastro</Link>
 			</p>
 			<p>
-				<a href=".">Esqueci a Senha</a>
+				<Link to="/forgot-password">Esqueci a Senha</Link>
 			</p>
 		</div>
 	)

@@ -1,0 +1,1 @@
+export { ForgotPass } from './ForgotPass'

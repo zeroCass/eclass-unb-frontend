@@ -4,6 +4,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { AuthContext } from '../../contexts/AuthContext/context'
 import { MainRoute } from '../../routes/MainRoute'
 import { RequireAuth } from '../../routes/RequireAuth'
+import { ForgotPass } from '../ForgotPass'
 import { Login } from '../Login'
 import { Register } from '../Register'
 
@@ -22,6 +23,10 @@ function App() {
 			<Route
 				path="/register"
 				element={authState.token ? <Navigate to={'/'} /> : <Register />}
+			/>
+			<Route
+				path="/forgot-password"
+				element={authState.token ? <Navigate to={'/'} /> : <ForgotPass />}
 			/>
 		</Routes>
 	)
