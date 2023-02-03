@@ -1,4 +1,4 @@
-header#header-menu {
+header.header-menu {
 	display: flex;
 	background-color: rgb(27, 104, 172);
 	color: white;

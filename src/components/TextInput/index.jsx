@@ -1,4 +1,4 @@
-import './style.css'
+import styles from './style.module.css'
 
 export const TextInput = ({
 	type,
@@ -9,7 +9,7 @@ export const TextInput = ({
 	labelValue,
 }) => {
 	return (
-		<div className="text-field">
+		<div className={styles['text-field']}>
 			<input
 				type={type}
 				id={id}

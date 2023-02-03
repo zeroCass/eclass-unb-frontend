@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
-import './style.css'
+import styles from './style.module.css'
 
 export const ButtonsContainer = () => {
 	return (
-		<div className="button-container">
+		<div className={styles['button-container']}>
 			<button>Login</button>
 			<p>
 				<Link to="/register">Solicitar Cadastro</Link>
