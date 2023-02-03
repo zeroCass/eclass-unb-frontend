@@ -7,6 +7,7 @@ export const AuthSection = ({
 	handleSubmit,
 	formComponents,
 	buttonsContainer,
+	pInfo,
 	othersComponents,
 }) => {
 	return (
@@ -15,6 +16,11 @@ export const AuthSection = ({
 				<div className={styles['logo-container']}>
 					<img src={logo} className={styles['logo']} alt="e-class logo" />
 					<h1>{title}</h1>
+					{pInfo ? (
+						<div className={styles['p-info']}>
+							<p>{pInfo}</p>
+						</div>
+					) : null}
 				</div>
 				<form onSubmit={handleSubmit}>
 					{formComponents}

@@ -15,9 +15,12 @@ export const Register = () => {
 	const [email, setEmail] = useState('')
 	const [cpf, setCpf] = useState('')
 
+	const pInfo = `Preencha os campos corretamente para solicitar seu acesso`
+
 	return (
 		<AuthSection
 			logo={logo}
+			pInfo={pInfo}
 			title={'Solicitar Cadastro'}
 			buttonsContainer={<ButtonsContainer />}
 			othersComponents={<RadioButtons />}

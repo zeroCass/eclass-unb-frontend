@@ -21,6 +21,13 @@
 	flex-direction: column;
 }
 
+.p-info {
+	margin-top: 10px;
+	color: #bababa;
+	text-align: center;
+	width: 80%;
+}
+
 .logo-container,
 .auth-img-container {
 	display: flex;
@@ -43,4 +50,5 @@
 	padding: 10px 20px;
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 }
