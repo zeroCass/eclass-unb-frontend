@@ -1,5 +1,5 @@
 import authImage from '../../assets/svg/authImage.svg'
-import './style.css'
+import styles from './style.module.css'
 
 export const AuthSection = ({
 	logo,
@@ -10,10 +10,10 @@ export const AuthSection = ({
 	othersComponents,
 }) => {
 	return (
-		<section className="auth-section">
-			<div className="auth-container">
-				<div className="logo-container">
-					<img src={logo} className="logo" alt="e-class logo" />
+		<section className={styles['auth-section']}>
+			<div className={styles['auth-container']}>
+				<div className={styles['logo-container']}>
+					<img src={logo} className={styles['logo']} alt="e-class logo" />
 					<h1>{title}</h1>
 				</div>
 				<form onSubmit={handleSubmit}>
@@ -22,10 +22,10 @@ export const AuthSection = ({
 					{buttonsContainer}
 				</form>
 			</div>
-			<div className="auth-img-container">
+			<div className={styles['auth-img-container']}>
 				<img
 					src={authImage}
-					className="authImage"
+					className="auth-image"
 					alt="authentication image"
 				/>
 			</div>

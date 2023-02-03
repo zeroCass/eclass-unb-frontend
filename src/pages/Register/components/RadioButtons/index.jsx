@@ -1,13 +1,13 @@
 import { useState } from 'react'
-import './style.css'
+import styles from './style.module.css'
 
 export const RadioButtons = () => {
 	const [role, setRole] = useState('student')
 	return (
-		<div className={'role-choose'}>
+		<div className={styles['role-choose']}>
 			<h4>Selecione sua função</h4>
-			<div className="radio-buttons-container">
-				<div className="radio-container">
+			<div className={styles['radio-buttons-container']}>
+				<div className={styles['radio-container']}>
 					<input
 						type={'radio'}
 						name="user-role"
@@ -19,7 +19,7 @@ export const RadioButtons = () => {
 					/>
 					<label htmlFor="student">Aluno</label>
 				</div>
-				<div className="radio-container">
+				<div className={styles['radio-container']}>
 					<input
 						type={'radio'}
 						name="user-role"

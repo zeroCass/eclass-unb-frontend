@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { logout } from '../../contexts/AuthContext/actions'
 import { AuthContext } from '../../contexts/AuthContext/context'
-import './style.css'
+import styles from './style.module.css'
 
 export const HeaderMenu = () => {
 	const authContext = useContext(AuthContext)
@@ -14,11 +14,11 @@ export const HeaderMenu = () => {
 	}
 
 	return (
-		<header id="header-menu">
+		<header className={styles['header-menu']}>
 			<div>
 				<h1>LOGO</h1>
-				<div className="nav-container">
-					<ul className="nav-list">
+				<div className={styles['nav-container']}>
+					<ul className={styles['nav-list']}>
 						<li>
 							<Link to={'/classes'}>Turmas</Link>
 						</li>
