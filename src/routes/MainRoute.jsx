@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router-dom'
+import { MainLayout } from '../components/MainLayout'
 import { Classes } from '../pages/Classes'
 import { Perfil } from '../pages/Perfil'
 import { Questions } from '../pages/Questions'
-import { MainLayout } from '../routes/MainLayout'
 
 export const MainRoute = () => (
 	<Routes>
