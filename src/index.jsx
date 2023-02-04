@@ -1,29 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import './common/global.css'
 import { AuthProvider } from './contexts/AuthContext'
-import App from './pages/App'
-
-const theme = createTheme({
-	palette: {
-		primary: {
-			main: '#19338f',
-		},
-	},
-})
+import MyRoutes from './routes/MyRoutes'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
 	<React.StrictMode>
-		<ThemeProvider theme={theme}>
-			<BrowserRouter>
-				<AuthProvider>
-					<Routes>
-						<Route path="*" element={<App />} />
-					</Routes>
-				</AuthProvider>
-			</BrowserRouter>
-		</ThemeProvider>
+		<BrowserRouter>
+			<AuthProvider>
+				<MyRoutes />
+			</AuthProvider>
+		</BrowserRouter>
 	</React.StrictMode>,
 )

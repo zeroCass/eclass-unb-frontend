@@ -1,14 +1,14 @@
 /*eslint-disable */
 import { useContext } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { AuthContext } from '../../contexts/AuthContext/context'
-import { MainRoute } from '../../routes/MainRoute'
-import { RequireAuth } from '../../routes/RequireAuth'
-import { ForgotPass } from '../ForgotPass'
-import { Login } from '../Login'
-import { Register } from '../Register'
+import { AuthContext } from '../contexts/AuthContext/context'
+import { ForgotPass } from '../pages/ForgotPass'
+import { Login } from '../pages/Login'
+import { Register } from '../pages/Register'
+import { MainRoute } from './MainRoute'
+import { RequireAuth } from './RequireAuth'
 
-function App() {
+const MyRoutes = () => {
 	const authContext = useContext(AuthContext)
 	const { authState } = authContext
 	return (
@@ -32,4 +32,4 @@ function App() {
 	)
 }
 
-export default App
+export default MyRoutes

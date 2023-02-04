@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router'
-import { HeaderMenu } from '../components/HeaderMenu'
+import { HeaderMenu } from '../HeaderMenu'
 
 export const MainLayout = () => {
 	return (
