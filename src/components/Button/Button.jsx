@@ -1,32 +1,24 @@
+import * as Styled from './styles'
+
 export const Button = ({
 	onClick,
-	margin,
-	padding,
-	width,
-	height,
-	fontSize,
+	margin = 0,
+	padding = 0,
+	width = '160px',
+	height = '40px',
+	fontSize = '23px',
 	children,
 }) => {
 	return (
-		<button
+		<Styled.Button
 			onClick={onClick}
-			style={{
-				fontFamily: 'Poppins',
-				fontStyle: 'normal',
-				fontWeight: 500,
-				fontSize: fontSize || '23px',
-				lineHeight: '34px',
-				color: 'white',
-				width: width || '160px',
-				height: height || '40px',
-				background: 'linear-gradient(180deg, #19338f 0%, #90a2e4 100%)',
-				borderRadius: '10px',
-				margin: margin || '0',
-				padding: padding || '0',
-				border: 'none',
-			}}
+			margin={margin}
+			padding={padding}
+			width={width}
+			height={height}
+			fontSize={fontSize}
 		>
 			{children}
-		</button>
+		</Styled.Button>
 	)
 }
