@@ -1,7 +1,11 @@
+import { SearchBar } from '../../components/SearchBar'
+
 export const Classes = () => {
 	return (
-		<div>
-			<h1>Classes PAGE</h1>
-		</div>
+		<section>
+			<h1>Turmas</h1>
+			<SearchBar></SearchBar>
+			<p>Lista de turmas</p>
+		</section>
 	)
 }
