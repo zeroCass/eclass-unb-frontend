@@ -40,11 +40,13 @@ header.header-menu {
 	color: white;
 }
 
-.pages-list li img {
-	position: relative;
-	width: 160px;
-	left: 32px;
-	top: 20px;
+.pages-list li .logo {
+	background-image: url("../../assets/svg/logo.svg");
+	background-size: 150%;
+	background-position: -8% -2%;
+	background-repeat: no-repeat;
+	width: 110px;
+	height: 110px;
 }
 
 .user-list li {

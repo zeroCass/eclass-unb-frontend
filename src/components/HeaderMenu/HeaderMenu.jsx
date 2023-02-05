@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { logout } from '../../contexts/AuthContext/actions'
 import { AuthContext } from '../../contexts/AuthContext/context'
 import styles from './style.module.css'
-import logo from '../../assets/svg/logo.svg'
 import { SiGoogleclassroom } from 'react-icons/si'
 import { BiBookContent } from 'react-icons/bi'
 import { HiOutlineDocumentReport } from 'react-icons/hi'
@@ -22,9 +21,9 @@ export const HeaderMenu = () => {
 		<header className={styles['header-menu']}>
 			<div className={styles['pages-container']}>
 				<ul className={styles['pages-list']}>
-					<li className={styles['logo']}>
+					<li>
 						<Link to={'/'}>
-							<img src={logo} alt="e-class logo" />
+							<div className={styles['logo']}></div>
 						</Link>
 					</li>
 					<li>
