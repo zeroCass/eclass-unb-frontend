@@ -1,12 +1,12 @@
 import { useContext } from 'react'
+import { BiBookContent } from 'react-icons/bi'
+import { HiOutlineDocumentReport } from 'react-icons/hi'
+import { RiLogoutBoxRLine } from 'react-icons/ri'
+import { SiGoogleclassroom } from 'react-icons/si'
 import { Link } from 'react-router-dom'
 import { logout } from '../../contexts/AuthContext/actions'
 import { AuthContext } from '../../contexts/AuthContext/context'
 import styles from './style.module.css'
-import { SiGoogleclassroom } from 'react-icons/si'
-import { BiBookContent } from 'react-icons/bi'
-import { HiOutlineDocumentReport } from 'react-icons/hi'
-import { RiLogoutBoxRLine } from 'react-icons/ri'
 
 export const HeaderMenu = () => {
 	const authContext = useContext(AuthContext)
@@ -59,7 +59,9 @@ export const HeaderMenu = () => {
 						<span>tipo de usuário</span>
 					</li>
 					<li className={styles['user-photo']}>
-						<div></div>
+						<Link to={'/perfil'}>
+							<div></div>
+						</Link>
 					</li>
 					<li>
 						<button onClick={logoutHandler}>
