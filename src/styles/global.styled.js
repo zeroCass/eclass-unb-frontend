@@ -16,6 +16,7 @@ export const GlobalStyles = createGlobalStyle`
 		font-size: 1.6rem;
 		min-height: 100vh;
 		background-color: #E5E5E5;
+		overflow-x: hidden;
 	}
 
 	#root {
