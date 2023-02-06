@@ -26,7 +26,7 @@ export const ItemsContent = ({ array, title, placeholder, itemFormat }) => {
 						}, delaySearch)
 					}}
 				></input>
-				<BiSearchAlt></BiSearchAlt>
+				<BiSearchAlt className="icon-search"></BiSearchAlt>
 			</div>
 			<SearchedItems
 				searchedArray={searchedArray}
