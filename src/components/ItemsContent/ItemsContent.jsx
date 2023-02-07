@@ -1,9 +1,19 @@
-import { useMemo, useRef, useState } from 'react'
-import { Container } from './styles'
+import { useContext, useMemo, useRef, useState } from 'react'
 import { BiSearchAlt } from 'react-icons/bi'
+import { RiAddCircleFill } from 'react-icons/ri'
+import { AuthContext } from '../../contexts/AuthContext/context'
+import { Modal } from '../Modal/Modal'
 import { SearchedItems } from '../SearchedItems'
+import { Container } from './styles'
 
 export const ItemsContent = ({ array, title, placeholder, itemFormat }) => {
+	const authContext = useContext(AuthContext)
+	const {
+		authState: { userType },
+	} = authContext
+
+	console.log(userType)
+
 	const [text, setText] = useState('')
 	const searchedArray = useMemo(() => {
 		const lowerText = text.toLowerCase()
@@ -13,8 +23,12 @@ export const ItemsContent = ({ array, title, placeholder, itemFormat }) => {
 	const timeoutRef = useRef(null)
 	const delaySearch = 500 // (dado em ms)
 
+	// modal state
+	const [isOpen, setIsOpen] = useState(false)
+
 	return (
 		<Container>
+			<Modal isOpen={isOpen} onClose={() => setIsOpen(false)}></Modal>
 			<h1>{title}</h1>
 			<div className="searchBar">
 				<input
@@ -32,6 +46,14 @@ export const ItemsContent = ({ array, title, placeholder, itemFormat }) => {
 				searchedArray={searchedArray}
 				itemFormat={itemFormat}
 			></SearchedItems>
+			{/* render button if is teacher or adm */}
+			{userType !== 2 && (
+				<div className="add-button-container">
+					<button onClick={() => setIsOpen(true)}>
+						<RiAddCircleFill />
+					</button>
+				</div>
+			)}
 		</Container>
 	)
 }

@@ -5,6 +5,7 @@ export const Container = styled.section`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	position: relative;
 	h1 {
 		margin: 2rem 0 1rem 0;
 		font-family: Neucha, sans-serif;
@@ -48,9 +49,21 @@ export const Container = styled.section`
 			position: absolute;
 			right: 21%;
 			top: 23%;
-			/* top: 17.7rem; */
 			font-size: 3rem;
-			/* margin-right: 2rem; */
 		}
+	}
+	.add-button-container {
+		z-index: 1;
+		position: absolute;
+		left: 110px;
+		bottom: 0;
+		width: auto;
+		height: auto;
+	}
+	.add-button-container button {
+		font-size: 50px;
+		border: none;
+		background: none;
+		color: ${({ theme }) => theme.colors.primary};
 	}
 `
