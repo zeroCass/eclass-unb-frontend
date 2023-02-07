@@ -11,13 +11,14 @@ export const Container = styled.section`
 		font-size: 2rem;
 	}
 	div {
+		position: relative;
 		width: 58%;
 		height: 4.8rem;
 		display: flex;
 		justify-content: center;
 		margin-bottom: 2rem;
 		> input {
-			width: 100%;
+			width: 60%;
 			height: 100%;
 			padding: 0 2.7rem;
 			border: 1px solid #d0cfce;
@@ -45,9 +46,10 @@ export const Container = styled.section`
 		}
 		> .icon-search {
 			position: absolute;
-			right: 23%;
-			top: 17.7rem;
-			font-size: 2rem;
+			right: 21%;
+			top: 23%;
+			/* top: 17.7rem; */
+			font-size: 3rem;
 			/* margin-right: 2rem; */
 		}
 	}
