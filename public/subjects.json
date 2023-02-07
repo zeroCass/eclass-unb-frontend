@@ -1,0 +1,26 @@
+[
+	{
+		"subjectID": 10,
+		"subjectName": "Metodos de Programacao",
+		"description": "Design de Software, metodologia agil, scrum, kanbam",
+		"course": "Ciencia da Computacao"
+	},
+	{
+		"subjectID": 1,
+		"subjectName": "Banco de Dados",
+		"description": "Banco de dados relacional, MER - Modelo Entidade Relacionamento",
+		"course": "Ciencia da Computacao"
+	},
+	{
+		"subjectID": 15,
+		"subjectName": "Organizacao e Arquitetura de Computares",
+		"description": "CPU, Otimizacao, Linguagem de Maquina",
+		"course": "Ciencia da Computacao"
+	},
+	{
+		"subjectID": 30,
+		"subjectName": "Algoritimos de Progamacao",
+		"description": "Linguagem de Programacao, Tipo de dados, Tipo de Estruturas, Loops, Condicionais",
+		"course": "Ciencia da Computacao"
+	}
+]

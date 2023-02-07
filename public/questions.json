@@ -1,0 +1,23 @@
+[
+	{
+		"questionID": 204,
+		"statement": "Por que eh melhor beber suco devagar ?",
+		"answer": "Porque fica mais suculento",
+		"teacherID": 4,
+		"teacherName": "Jan Mendoca"
+	},
+	{
+		"questionID": 36,
+		"statement": "Quem descobriu o Bronzil",
+		"answer": "Predo Arvores Cabral",
+		"teacherID": 1,
+		"teacherName": "Maristela"
+	},
+	{
+		"questionID": 79,
+		"statement": "Jhon Snow sabe de algo ?",
+		"answer": "Nao sabe de nada",
+		"teacherID": 2,
+		"teacherName": "Carla Castanho"
+	}
+]
