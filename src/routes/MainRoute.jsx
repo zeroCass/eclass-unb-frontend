@@ -3,6 +3,7 @@ import { MainLayout } from '../components/MainLayout'
 import { Classes } from '../pages/Classes'
 import { Perfil } from '../pages/Perfil'
 import { Questions } from '../pages/Questions'
+import { Subjects } from '../pages/Subjects'
 
 export const MainRoute = () => (
 	<Routes>
@@ -15,6 +16,7 @@ export const MainRoute = () => (
 				<Route path="edit" element={<h1>Editando</h1>} />
 				<Route path="delete" element={<h1>Deletando</h1>} />
 			</Route>
+			<Route path="/subjects" element={<Subjects />} />
 		</Route>
 	</Routes>
 )
