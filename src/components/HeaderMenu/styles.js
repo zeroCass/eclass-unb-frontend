@@ -28,7 +28,7 @@ export const PagesList = styled.ul`
 	height: 100%;
 	list-style: none;
 	& li {
-		width: 120px;
+		width: 140px;
 		display: flex;
 		border-right: 1px solid #6e6e6e;
 		display: flex;

@@ -1,6 +1,8 @@
 import { useContext } from 'react'
 import { BiBookContent } from 'react-icons/bi'
 import { HiOutlineDocumentReport } from 'react-icons/hi'
+import { IoBookOutline } from 'react-icons/io5'
+import { MdOutlineSchool } from 'react-icons/md'
 import { RiLogoutBoxRLine } from 'react-icons/ri'
 import { SiGoogleclassroom } from 'react-icons/si'
 import { Link } from 'react-router-dom'
@@ -55,6 +57,27 @@ export const HeaderMenu = () => {
 							</div>
 						</Link>
 					</li>
+					{/* render extra button for the ADM */}
+					{authState.userType === 0 && (
+						<>
+							<li>
+								<Link to={'/students'}>
+									<div>
+										<MdOutlineSchool />
+										<span>ESTUDANTES</span>
+									</div>
+								</Link>
+							</li>
+							<li>
+								<Link to={'/teachers'}>
+									<div>
+										<IoBookOutline />
+										<span>PROFESSORES</span>
+									</div>
+								</Link>
+							</li>
+						</>
+					)}
 				</Styled.PagesList>
 			</Styled.PagesContainer>
 			<Styled.UserContainer>
