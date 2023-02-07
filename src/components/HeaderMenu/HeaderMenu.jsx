@@ -10,12 +10,17 @@ import styles from './style.module.css'
 
 export const HeaderMenu = () => {
 	const authContext = useContext(AuthContext)
-	const { authDispatch } = authContext
+	const { authState, authDispatch } = authContext
 
 	const logoutHandler = () => {
-		console.log('entrou')
 		logout(authDispatch)
 	}
+
+	const userName = authState.name || 'Usuario'
+	let userType = ''
+	if (authState.userType === 0) userType = 'Administrador(a)'
+	if (authState.userType === 1) userType = 'Professor(a)'
+	if (authState.userType === 2) userType = 'Aluno(a)'
 
 	return (
 		<header className={styles['header-menu']}>
@@ -43,7 +48,7 @@ export const HeaderMenu = () => {
 						</Link>
 					</li>
 					<li>
-						<Link to={'/'}>
+						<Link to={'/subjects'}>
 							<div>
 								<BiBookContent></BiBookContent>
 								<span>MATERIAS</span>
@@ -55,8 +60,8 @@ export const HeaderMenu = () => {
 			<div className={styles['user-container']}>
 				<ul className={styles['user-list']}>
 					<li className={styles['user-name-type']}>
-						<h1>Nome do usuário</h1>
-						<span>tipo de usuário</span>
+						<h1>{userName}</h1>
+						<span>{userType}</span>
 					</li>
 					<li className={styles['user-photo']}>
 						<Link to={'/perfil'}>
