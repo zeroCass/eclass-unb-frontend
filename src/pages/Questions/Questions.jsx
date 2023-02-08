@@ -1,6 +1,6 @@
 import { useContext } from 'react'
-import { AuthContext } from '../../contexts/AuthContext/context'
 import { ItemsContent } from '../../components/ItemsContent'
+import { AuthContext } from '../../contexts/AuthContext/context'
 
 export const Questions = () => {
 	const authContext = useContext(AuthContext)

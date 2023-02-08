@@ -16,7 +16,7 @@ export const ItemsContent = ({ array, title, placeholder, itemFormat }) => {
 	return (
 		<Container>
 			<h1>{title}</h1>
-			<div className="searchBar">
+			<div className="search-bar">
 				<input
 					placeholder={placeholder}
 					onChange={(event) => {
