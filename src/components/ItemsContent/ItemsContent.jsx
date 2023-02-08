@@ -12,8 +12,6 @@ export const ItemsContent = ({ array, title, placeholder, itemFormat }) => {
 		authState: { userType },
 	} = authContext
 
-	console.log(userType)
-
 	const [text, setText] = useState('')
 	const searchedArray = useMemo(() => {
 		const lowerText = text.toLowerCase()

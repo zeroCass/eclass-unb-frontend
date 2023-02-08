@@ -1,15 +1,13 @@
 import { AiOutlineFileDone } from 'react-icons/ai'
-import { Button } from '../Button'
 import * as Styled from './styles'
 
 export const ItemList = ({
 	title,
 	description,
 	timeDate,
-	buttonText,
 	hasIcon = false,
-	hasDate,
-	hasTwoButtons = false,
+	hasDate = false,
+	buttonsComponents,
 }) => {
 	return (
 		<Styled.Container>
@@ -36,14 +34,12 @@ export const ItemList = ({
 			</div>
 
 			<div className="button-div">
-				{hasTwoButtons && (
-					<div className="button-comp">
-						<Button margin={'0'}>Teste</Button>
-					</div>
-				)}
-				<div className="button-comp">
-					<Button margin={'0'}>{buttonText}</Button>
-				</div>
+				{buttonsComponents &&
+					buttonsComponents.map((ButtonComponent, index) => (
+						<div key={index} className="button-comp">
+							{ButtonComponent}
+						</div>
+					))}
 			</div>
 		</Styled.Container>
 	)
