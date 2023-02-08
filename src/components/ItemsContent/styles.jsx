@@ -11,7 +11,7 @@ export const Container = styled.section`
 		font-family: Neucha, sans-serif;
 		font-size: 2rem;
 	}
-	div {
+	> div.search-bar {
 		position: relative;
 		width: 58%;
 		height: 4.8rem;

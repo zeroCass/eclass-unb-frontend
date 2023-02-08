@@ -30,7 +30,7 @@ export const ItemsContent = ({ array, title, placeholder, itemFormat }) => {
 		<Container>
 			<Modal isOpen={isOpen} onClose={() => setIsOpen(false)}></Modal>
 			<h1>{title}</h1>
-			<div className="searchBar">
+			<div className="search-bar">
 				<input
 					placeholder={placeholder}
 					onChange={(event) => {

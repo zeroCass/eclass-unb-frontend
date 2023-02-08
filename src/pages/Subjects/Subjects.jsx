@@ -8,6 +8,16 @@ export const Subjects = () => {
 				array={['Materia1', 'Materia2', 'Materia3']}
 				placeholder={'Pesquise pela Materia'}
 				itemFormat={(item, index) => <li key={index}>{item} teste</li>}
+				/*temFormat={(item, index) => (
+					<li key={index}>
+						{' '}
+						<ItemList
+							title={item}
+							description="Periodo X"
+							buttonText="Vizualizar"
+						/>
+					</li>
+				)}*/
 			></ItemsContent>
 		</div>
 	)
