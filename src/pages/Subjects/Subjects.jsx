@@ -1,7 +1,17 @@
-import { ItemList } from '../../components/ItemList'
+import { useContext } from 'react'
+import { Button } from '../../components/Button'
+import { ItemList } from '../../components/ItemList/ItemList'
 import { ItemsContent } from '../../components/ItemsContent'
+import { AuthContext } from '../../contexts/AuthContext/context'
 
 export const Subjects = () => {
+	const authContext = useContext(AuthContext)
+	const { authState } = authContext
+
+	const buttonsComponents = [<Button key={0}>Visualizar</Button>]
+	authState.userType === 1 &&
+		buttonsComponents.push(<Button key={1}>Vincular-se</Button>)
+
 	return (
 		<div>
 			<ItemsContent
@@ -13,7 +23,7 @@ export const Subjects = () => {
 						<ItemList
 							title={item}
 							description="Periodo X"
-							buttonText="Vizualizar"
+							buttonsComponents={buttonsComponents}
 						/>
 					</li>
 				)}

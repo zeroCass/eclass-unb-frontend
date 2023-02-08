@@ -1,3 +1,4 @@
+import { Button } from '../../components/Button'
 import { ItemList } from '../../components/ItemList/ItemList'
 import { ItemsContent } from '../../components/ItemsContent'
 
@@ -14,13 +15,20 @@ export const Classes = () => {
 				placeholder={'Pesquise pela turma'}
 				itemFormat={(item, index) => (
 					<li key={index}>
-						{' '}
 						<ItemList
 							title={item}
 							description="Professor : Nome do Professor"
-							hasDate
+							hasDate={true}
 							timeDate="horario: hh:mm as hh:mm"
-							buttonText="Entrar"
+							buttonsComponents={[
+								<Button
+									key={0}
+									onClick={() => console.log('Entrou em Turmas')}
+									margin={'0'}
+								>
+									Entrar
+								</Button>,
+							]}
 						/>
 					</li>
 				)}

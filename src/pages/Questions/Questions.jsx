@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import { Button } from '../../components/Button'
 import { ItemList } from '../../components/ItemList/ItemList'
 import { ItemsContent } from '../../components/ItemsContent'
 import { AuthContext } from '../../contexts/AuthContext/context'
@@ -19,11 +20,10 @@ export const Questions = () => {
 				placeholder={'Pesquise pela questao'}
 				itemFormat={(item, index) => (
 					<li key={index}>
-						{' '}
 						<ItemList
 							title={item}
 							description="Professor : Nome do Professor"
-							buttonText="Vizualizar"
+							buttonsComponents={[<Button key={0}>Visualizar</Button>]}
 						/>
 					</li>
 				)}
