@@ -4,8 +4,11 @@ import * as Styled from './styles'
 
 export const ItemList = ({
 	title,
+	description,
+	timeDate,
+	buttonText,
 	hasIcon = false,
-	hasDate = false,
+	hasDate,
 	hasTwoButtons = false,
 }) => {
 	return (
@@ -16,22 +19,21 @@ export const ItemList = ({
 				</div>
 			)}
 
-			<div className="info">
+			<div className="text">
 				<div className="heading">
 					<h3>{title}</h3>
 				</div>
-				<div className="end-content">
-					<h4>descrição random</h4>
+				<div className="info">
+					<div className="end-text">
+						<h4>{description}</h4>
+					</div>
+					{hasDate && (
+						<div className="end-text">
+							<h4>{timeDate}</h4>
+						</div>
+					)}
 				</div>
 			</div>
-
-			{hasDate && (
-				<div className="date">
-					<div className="end-content">
-						<h4>dd/mm/aa hh:mm</h4>
-					</div>
-				</div>
-			)}
 
 			<div className="button-div">
 				{hasTwoButtons && (
@@ -40,7 +42,7 @@ export const ItemList = ({
 					</div>
 				)}
 				<div className="button-comp">
-					<Button margin={'0'}>Entrar</Button>
+					<Button margin={'0'}>{buttonText}</Button>
 				</div>
 			</div>
 		</Styled.Container>

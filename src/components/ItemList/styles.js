@@ -4,48 +4,55 @@ export const Container = styled.div`
 	border-radius: 10px;
 	margin-top: 30px;
 	display: flex;
-	width: 937px;
-	height: 63px;
+	width: 1000px;
+	/*height: 65px;*/
 
 	& .icon {
 		width: 55px;
 		display: flex;
-		/*border: 2px solid green;*/
+		align-items: center;
+		/*border: 2px solid blue;*/
 	}
 
 	.heading {
-		text-align: center;
+		text-align: flex-start;
+		display: flex;
+		flex-wrap: wrap;
+		/*border: 2px solid green;*/
 	}
 
-	.info {
-		width: 400px;
+	& .text {
+		width: 600px;
 		display: flex;
 		flex-direction: column;
 		flex-wrap: nowrap;
-		/*border: 2px solid yellow;*/
+		/*border: 2px solid orange;*/
 	}
-	.info div {
+	& .text div {
 		flex: 1;
 	}
 
-	.date {
-		width: 200px;
+	.info {
+		width: 600px;
 		display: flex;
+		flex-flow: row nowrap;
 		/*border: 2px solid purple;*/
 	}
 
-	.end-content {
-		padding: 5px;
+	.end-text {
+		width: 300px;
 		display: flex;
+		flex-flow: row nowrap;
 		align-items: flex-end;
 		justify-content: flex-start;
+		/*border: 2px solid pink;*/
 	}
 
 	.button-div{
-		width: 468px;
+		width: 400px;
 		display: flex;
 		flex-flow: row nowrap;
-		justify-content: flex-end;
+		justify-content: center;
 		align-items: center;
 		/*border: 2px solid red;*/
 	}
@@ -53,6 +60,7 @@ export const Container = styled.div`
 	.button-comp{
 		padding: 5px;
 		display: flex;
+		/*border: 2px solid brown;*/
 	}
 
 	h3 {

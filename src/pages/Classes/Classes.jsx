@@ -6,12 +6,22 @@ export const Classes = () => {
 		<section>
 			<ItemsContent
 				title={'Turmas'}
-				array={['Turma1', 'Turma2', 'Turma3']}
+				array={[
+					'Nome da Materia - Turma 1',
+					'Nome da Materia - Turma 2',
+					'Nome da Materia - Turma 3',
+				]}
 				placeholder={'Pesquise pela turma'}
 				itemFormat={(item, index) => (
 					<li key={index}>
 						{' '}
-						<ItemList title={item} />
+						<ItemList
+							title={item}
+							description="Professor : Nome do Professor"
+							hasDate
+							timeDate="horario: hh:mm as hh:mm"
+							buttonText="Entrar"
+						/>
 					</li>
 				)}
 			></ItemsContent>
