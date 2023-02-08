@@ -1,17 +1,17 @@
-import { useContext, useMemo, useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { BiSearchAlt } from 'react-icons/bi'
 import { RiAddCircleFill } from 'react-icons/ri'
-import { AuthContext } from '../../contexts/AuthContext/context'
 import { Modal } from '../Modal/Modal'
 import { SearchedItems } from '../SearchedItems'
 import { Container } from './styles'
 
-export const ItemsContent = ({ array, title, placeholder, itemFormat }) => {
-	const authContext = useContext(AuthContext)
-	const {
-		authState: { userType },
-	} = authContext
-
+export const ItemsContent = ({
+	array,
+	title,
+	placeholder,
+	showAddButton,
+	itemFormat,
+}) => {
 	const [text, setText] = useState('')
 	const searchedArray = useMemo(() => {
 		const lowerText = text.toLowerCase()
@@ -45,7 +45,7 @@ export const ItemsContent = ({ array, title, placeholder, itemFormat }) => {
 				itemFormat={itemFormat}
 			></SearchedItems>
 			{/* render button if is teacher or adm */}
-			{userType !== 2 && (
+			{showAddButton && (
 				<div className="add-button-container">
 					<button onClick={() => setIsOpen(true)}>
 						<RiAddCircleFill />
