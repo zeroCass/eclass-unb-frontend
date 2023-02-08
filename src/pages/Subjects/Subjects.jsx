@@ -9,8 +9,9 @@ export const Subjects = () => {
 	const { authState } = authContext
 
 	const buttonsComponents = [<Button key={0}>Visualizar</Button>]
-	authState.userType === 1 &&
-		buttonsComponents.push(<Button key={1}>Vincular-se</Button>)
+	buttonsComponents.push(
+		authState.userType === 1 ? <Button key={1}>Vincular-se</Button> : [],
+	)
 
 	return (
 		<div>
@@ -18,6 +19,7 @@ export const Subjects = () => {
 				title={'Materias'}
 				array={['Materia1', 'Materia2', 'Materia3']}
 				placeholder={'Pesquise pela Materia'}
+				showAddButton={authState.userType === 0}
 				itemFormat={(item, index) => (
 					<li key={index}>
 						<ItemList

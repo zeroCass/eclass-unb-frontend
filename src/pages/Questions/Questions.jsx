@@ -6,8 +6,9 @@ import { AuthContext } from '../../contexts/AuthContext/context'
 
 export const Questions = () => {
 	const authContext = useContext(AuthContext)
-	/* eslint-disable no-unused-vars */
-	const { authState, authDispatch } = authContext
+	const {
+		authState: { userType },
+	} = authContext
 	return (
 		<div>
 			<ItemsContent
@@ -18,6 +19,7 @@ export const Questions = () => {
 					'Questão 3: Este é um exemplo de um possível enunciado de questão no futuro. Está destinado a mostrar como uma questão pode ser formulada e apresentada a alguém para responder...',
 				]}
 				placeholder={'Pesquise pela questao'}
+				showAddButton={userType !== 2}
 				itemFormat={(item, index) => (
 					<li key={index}>
 						<ItemList

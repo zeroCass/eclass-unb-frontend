@@ -1,8 +1,15 @@
+import { useContext } from 'react'
 import { Button } from '../../components/Button'
 import { ItemList } from '../../components/ItemList/ItemList'
 import { ItemsContent } from '../../components/ItemsContent'
+import { AuthContext } from '../../contexts/AuthContext/context'
 
 export const Classes = () => {
+	const authContext = useContext(AuthContext)
+	const {
+		authState: { userType },
+	} = authContext
+
 	return (
 		<section>
 			<ItemsContent
@@ -13,6 +20,7 @@ export const Classes = () => {
 					'Nome da Materia - Turma 3',
 				]}
 				placeholder={'Pesquise pela turma'}
+				showAddButton={userType !== 2}
 				itemFormat={(item, index) => (
 					<li key={index}>
 						<ItemList
