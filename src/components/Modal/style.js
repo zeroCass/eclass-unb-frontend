@@ -14,7 +14,7 @@ export const ButtonContainer = styled.div`
 	display: flex;
 	justify-content: flex-end;
 	width: 100%;
-	padding: 15px;
+	padding: 15px 15px 0 0;
 	& button {
 		background: none;
 		border: none;
@@ -29,8 +29,10 @@ export const Modal = styled.div`
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: ${({ width }) => width || '555px'};
-	height: ${({ height }) => height || '228px'};
+	width: ${({ width }) => width || 'auto'};
+	height: ${({ height }) => height || 'auto'};
+	min-height: 200px;
+	min-width: 300px;
 	background-color: #d9d9d9;
 	border-radius: 15px;
 `
