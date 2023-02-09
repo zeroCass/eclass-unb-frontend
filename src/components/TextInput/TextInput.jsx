@@ -1,4 +1,4 @@
-import styles from './style.module.css'
+import * as Styled from './styles'
 
 export const TextInput = ({
 	type,
@@ -9,7 +9,7 @@ export const TextInput = ({
 	labelValue,
 }) => {
 	return (
-		<div className={styles['text-field']}>
+		<Styled.TextField>
 			<input
 				type={type}
 				id={id}
@@ -19,6 +19,6 @@ export const TextInput = ({
 				required={required}
 			/>
 			<label htmlFor={id}>{labelValue}</label>
-		</div>
+		</Styled.TextField>
 	)
 }
