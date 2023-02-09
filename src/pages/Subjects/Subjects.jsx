@@ -3,6 +3,7 @@ import { Button } from '../../components/Button'
 import { ItemList } from '../../components/ItemList/ItemList'
 import { ItemsContent } from '../../components/ItemsContent'
 import { AuthContext } from '../../contexts/AuthContext/context'
+import { SubjectsForm } from './components/SubjectsForm/SubjectsForm'
 
 export const Subjects = () => {
 	const authContext = useContext(AuthContext)
@@ -20,6 +21,11 @@ export const Subjects = () => {
 				array={['Materia1', 'Materia2', 'Materia3']}
 				placeholder={'Pesquise pela Materia'}
 				showAddButton={authState.userType === 0}
+				modalContent={
+					<SubjectsForm
+						onSubmit={() => console.log('Cadastrou Materia')}
+					/>
+				}
 				itemFormat={(item, index) => (
 					<li key={index}>
 						<ItemList
