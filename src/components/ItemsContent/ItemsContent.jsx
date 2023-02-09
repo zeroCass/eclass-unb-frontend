@@ -9,6 +9,7 @@ export const ItemsContent = ({
 	array,
 	title,
 	placeholder,
+	modalContent,
 	showAddButton,
 	itemFormat,
 }) => {
@@ -26,7 +27,9 @@ export const ItemsContent = ({
 
 	return (
 		<Container>
-			<Modal isOpen={isOpen} onClose={() => setIsOpen(false)}></Modal>
+			<Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+				{modalContent}
+			</Modal>
 			<h1>{title}</h1>
 			<div className="search-bar">
 				<input
