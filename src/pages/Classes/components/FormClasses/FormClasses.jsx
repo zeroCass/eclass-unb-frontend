@@ -4,7 +4,7 @@ import { SearchModal } from '../../../../components/SearchModal'
 import { TextInput } from '../../../../components/TextInput'
 import * as Styled from './styles'
 
-export const FormClasses = () => {
+export const FormClasses = ({ onSubmit }) => {
 	const [classNameID, setClassNameID] = useState('')
 	const [capacity, setCapacity] = useState('')
 	const [startTime, setStartTime] = useState('')
@@ -15,6 +15,18 @@ export const FormClasses = () => {
 
 	const handleSearch = (item) => {
 		setSubject(item)
+	}
+
+	const handleSubmit = (e) => {
+		e.preventDefault()
+		onSubmit({
+			classNameID,
+			capacity,
+			startTime,
+			endTime,
+			password,
+			subject,
+		})
 	}
 
 	const options = [
@@ -53,7 +65,7 @@ export const FormClasses = () => {
 			<Styled.Header>
 				<h3>Cadastrar Turma</h3>
 			</Styled.Header>
-			<form>
+			<form onSubmit={handleSubmit}>
 				<TextInput
 					key="classNameID"
 					type="text"
@@ -110,10 +122,10 @@ export const FormClasses = () => {
 						{subject?.name || 'Nenhuma selecionada'}
 					</div>
 				</Styled.Select>
+				<div className="button-container">
+					<Button>Criar</Button>
+				</div>
 			</form>
-			<div className="button-container">
-				<Button>Criar</Button>
-			</div>
 		</Styled.Container>
 	)
 }

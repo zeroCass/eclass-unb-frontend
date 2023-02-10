@@ -1,7 +1,6 @@
 import { useMemo, useRef, useState } from 'react'
 import { BiSearchAlt } from 'react-icons/bi'
 import { RiAddCircleFill } from 'react-icons/ri'
-import { Modal } from '../Modal/Modal'
 import { SearchedItems } from '../SearchedItems'
 import { Container } from './styles'
 
@@ -9,8 +8,9 @@ export const ItemsContent = ({
 	array,
 	title,
 	placeholder,
-	modalContent,
-	showAddButton,
+	ModalComponent,
+	shouldOpenModal,
+	onOpenModal,
 	itemFormat,
 }) => {
 	const [text, setText] = useState('')
@@ -22,14 +22,9 @@ export const ItemsContent = ({
 	const timeoutRef = useRef(null)
 	const delaySearch = 500 // (dado em ms)
 
-	// modal state
-	const [isOpen, setIsOpen] = useState(false)
-
 	return (
 		<Container>
-			<Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-				{modalContent}
-			</Modal>
+			{ModalComponent}
 			<h1>{title}</h1>
 			<div className="search-bar">
 				<input
@@ -47,10 +42,9 @@ export const ItemsContent = ({
 				searchedArray={searchedArray}
 				itemFormat={itemFormat}
 			></SearchedItems>
-			{/* render button if is teacher or adm */}
-			{showAddButton && (
+			{shouldOpenModal && (
 				<div className="add-button-container">
-					<button onClick={() => setIsOpen(true)}>
+					<button onClick={onOpenModal}>
 						<RiAddCircleFill />
 					</button>
 				</div>

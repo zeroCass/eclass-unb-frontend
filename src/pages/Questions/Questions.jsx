@@ -3,6 +3,7 @@ import { Button } from '../../components/Button'
 import { ItemList } from '../../components/ItemList/ItemList'
 import { ItemsContent } from '../../components/ItemsContent'
 import { AuthContext } from '../../contexts/AuthContext/context'
+import { QuestionsForm } from './components/QuestionsForm'
 
 export const Questions = () => {
 	const authContext = useContext(AuthContext)
@@ -20,6 +21,11 @@ export const Questions = () => {
 				]}
 				placeholder={'Pesquise pela questao'}
 				showAddButton={userType !== 2}
+				modalContent={
+					<QuestionsForm
+						onSubmit={(data) => console.log('Questao criada', data)}
+					/>
+				}
 				itemFormat={(item, index) => (
 					<li key={index}>
 						<ItemList
