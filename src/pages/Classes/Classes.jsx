@@ -1,7 +1,8 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { Button } from '../../components/Button'
 import { ItemList } from '../../components/ItemList/ItemList'
 import { ItemsContent } from '../../components/ItemsContent'
+import { Modal } from '../../components/Modal/'
 import { AuthContext } from '../../contexts/AuthContext/context'
 import { FormClasses } from './components/FormClasses'
 
@@ -10,6 +11,9 @@ export const Classes = () => {
 	const {
 		authState: { userType },
 	} = authContext
+
+	const [isOpen, setIsOpen] = useState(false)
+	const showAddButton = userType !== 2
 
 	return (
 		<section>
@@ -21,8 +25,18 @@ export const Classes = () => {
 					'Nome da Materia - Turma 3',
 				]}
 				placeholder={'Pesquise pela turma'}
-				modalContent={<FormClasses />}
-				showAddButton={userType !== 2}
+				ModalComponent={
+					<Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+						<FormClasses
+							onSubmit={(data) => {
+								console.log(data)
+								setIsOpen(false)
+							}}
+						/>
+					</Modal>
+				}
+				shouldOpenModal={showAddButton}
+				onOpenModal={() => setIsOpen(true)}
 				itemFormat={(item, index) => (
 					<li key={index}>
 						<ItemList
