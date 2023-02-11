@@ -1,9 +1,13 @@
-import { useContext } from 'react'
-import { Button } from '../../components/Button'
-import { ItemList } from '../../components/ItemList/ItemList'
+import { useContext, useEffect, useState } from 'react'
+import { fetchData } from '../../api'
 import { ItemsContent } from '../../components/ItemsContent'
 import { UserForm } from '../../components/UserForm'
 import { AuthContext } from '../../contexts/AuthContext/context'
+import { useAsync } from '../../hooks/useAsync'
+
+const fetchStudents = () => {
+	return fetchData('students')
+}
 
 export const Students = () => {
 	const authContext = useContext(AuthContext)
@@ -11,36 +15,67 @@ export const Students = () => {
 		authState: { userType },
 	} = authContext
 
+	const { execute, loading, data, error } = useAsync(fetchStudents)
+	const [isOpen, setIsOpen] = useState(false)
+	const [formattedStudents, setFormattedStudents] = useState([])
+	const shouldHasModal = userType !== 2
+
+	useEffect(() => {
+		execute()
+	}, [execute])
+
+	useEffect(() => {
+		if (data) {
+			const newData = data.map((item) => ({
+				title: item.name,
+				description: item.email,
+			}))
+			setFormattedStudents(newData)
+		}
+	}, [data])
+
+	const itemButtons = [
+		{
+			label: 'Visualizar',
+			onClick: () => console.log('Visualizar Aluno'),
+		},
+	]
+
 	return (
-		<ItemsContent
-			title={'Estudantes'}
-			showAddButton={userType === 0}
-			array={['Nome do Aluno 1', 'Nome do Aluno 2', 'Nome do Aluno 3']}
-			placeholder={'Pesquise por estudante'}
-			modalContent={
-				<UserForm
-					title={'Cadastrar Estudante'}
-					userType={2}
-					onSubmit={() => console.log('Estudante cadastrado')}
-				/>
-			}
-			itemFormat={(item, index) => (
-				<li key={index}>
-					<ItemList
-						title={item}
-						description="Matricula do Aluno"
-						buttonsComponents={[
-							<Button
-								key={0}
-								onClick={() => console.log('Visualizando aluno')}
-								margin={'0'}
-							>
-								Visualizar
-							</Button>,
-						]}
-					/>
-				</li>
+		<section>
+			{loading && (
+				<div>
+					<h2>LOADING...</h2>
+				</div>
 			)}
-		/>
+			{error && (
+				<div>
+					<h2>ERROR: {error}</h2>
+				</div>
+			)}
+			{!loading && !error && (
+				<ItemsContent
+					title={'Estudantes'}
+					contentArray={formattedStudents}
+					placeholder={'Pesquise por estudante'}
+					ModalComponent={
+						shouldHasModal && (
+							<UserForm
+								title={'Cadastrar Estudante'}
+								isOpen={isOpen}
+								onClose={() => setIsOpen(false)}
+								onSubmit={() => {
+									console.log('Enviado')
+									setIsOpen(false)
+								}}
+							/>
+						)
+					}
+					shouldHasModal={shouldHasModal}
+					onOpenModal={() => setIsOpen(true)}
+					itemButtons={itemButtons}
+				></ItemsContent>
+			)}
+		</section>
 	)
 }

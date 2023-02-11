@@ -1,0 +1,30 @@
+[
+	{
+		"name": "Ciencia da Computacao",
+		"id": 34
+	},
+	{
+		"name": "Engenharia da Computacao",
+		"id": 33
+	},
+	{
+		"name": "Engenharia de Software",
+		"id": 32
+	},
+	{
+		"name": "Economia",
+		"id": 1
+	},
+	{
+		"name": "Matematica",
+		"id": 2
+	},
+	{
+		"name": "Fisica",
+		"id": 12
+	},
+	{
+		"name": "Quimica",
+		"id": 245
+	}
+]
