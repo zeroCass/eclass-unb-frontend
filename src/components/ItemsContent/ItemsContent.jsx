@@ -5,19 +5,22 @@ import { SearchedItems } from '../SearchedItems'
 import { Container } from './styles'
 
 export const ItemsContent = ({
-	array,
+	contentArray,
 	title,
 	placeholder,
 	ModalComponent,
-	shouldOpenModal,
+	shouldHasModal,
 	onOpenModal,
-	itemFormat,
+	itemButtons,
+	questionsSelection,
 }) => {
 	const [text, setText] = useState('')
 	const searchedArray = useMemo(() => {
 		const lowerText = text.toLowerCase()
-		return array.filter((item) => item.toLowerCase().includes(lowerText))
-	}, [text, array])
+		return contentArray.filter((item) =>
+			item.title.toLowerCase().includes(lowerText),
+		)
+	}, [text, contentArray])
 
 	const timeoutRef = useRef(null)
 	const delaySearch = 500 // (dado em ms)
@@ -27,6 +30,7 @@ export const ItemsContent = ({
 			{ModalComponent}
 			<h1>{title}</h1>
 			<div className="search-bar">
+				{questionsSelection}
 				<input
 					placeholder={placeholder}
 					onChange={(event) => {
@@ -40,9 +44,9 @@ export const ItemsContent = ({
 			</div>
 			<SearchedItems
 				searchedArray={searchedArray}
-				itemFormat={itemFormat}
+				itemButtons={itemButtons}
 			></SearchedItems>
-			{shouldOpenModal && (
+			{shouldHasModal && (
 				<div className="add-button-container">
 					<button onClick={onOpenModal}>
 						<RiAddCircleFill />

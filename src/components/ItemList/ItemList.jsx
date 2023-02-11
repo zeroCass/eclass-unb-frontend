@@ -6,7 +6,6 @@ export const ItemList = ({
 	description,
 	timeDate,
 	hasIcon = false,
-	hasDate = false,
 	buttonsComponents,
 }) => {
 	return (
@@ -25,7 +24,7 @@ export const ItemList = ({
 					<div className="end-text">
 						<h4>{description}</h4>
 					</div>
-					{hasDate && (
+					{timeDate && (
 						<div className="end-text">
 							<h4>{timeDate}</h4>
 						</div>
@@ -34,12 +33,9 @@ export const ItemList = ({
 			</div>
 
 			<div className="button-div">
-				{buttonsComponents &&
-					buttonsComponents.map((ButtonComponent, index) => (
-						<div key={index} className="button-comp">
-							{ButtonComponent}
-						</div>
-					))}
+				{buttonsComponents && (
+					<div className="button-comp">{buttonsComponents}</div>
+				)}
 			</div>
 		</Styled.Container>
 	)
