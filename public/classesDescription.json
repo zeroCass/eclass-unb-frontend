@@ -6,6 +6,7 @@
 		"endTime": "18:00",
 		"teacherID": 4,
 		"teacherName": "Jan Mendoca",
+		"studentsIDs": [1, 2, 5, 6],
 		"exams": [
 			{
 				"name": "Prova 1",
@@ -70,6 +71,7 @@
 		"endTime": "16:00",
 		"teacherID": 2,
 		"teacherName": "Carla Castanho",
+		"studentsIDs": [1, 2, 5, 6],
 		"exams": [
 			{
 				"name": "Prova 1",
@@ -107,6 +109,7 @@
 		"endTime": "10:00",
 		"teacherID": 3,
 		"teacherName": "Lamar",
+		"studentsIDs": [1, 2, 5, 6],
 		"exams": [
 			{
 				"name": "Prova 1",
@@ -154,6 +157,7 @@
 		"startTime": "10:00",
 		"endTime": "12:00",
 		"teacherID": 1,
-		"teacherName": "Maristela"
+		"teacherName": "Maristela",
+		"studentsIDs": [1, 2, 5, 6]
 	}
 ]
