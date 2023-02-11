@@ -1,0 +1,23 @@
+[
+	{
+		"registrationID": 1,
+		"name": "Joao Snow",
+		"email": "joao.snow@email.com",
+		"cpf": "0000000",
+		"userType": 2
+	},
+	{
+		"registrationID": 4,
+		"name": "Zoro Solador Mil Grau",
+		"email": "zoro@email.com",
+		"cpf": "0000000",
+		"userType": 2
+	},
+	{
+		"registrationID": 10,
+		"name": "Josefina dos Santos",
+		"email": "josefina@email.com",
+		"cpf": "0000000",
+		"userType": 2
+	}
+]
