@@ -5,15 +5,25 @@ import { TextInput } from '../TextInput'
 import * as Styled from './styles'
 
 export const UserForm = ({ title, userType, onSubmit, isOpen, onClose }) => {
-	const [registrationID, setRegistrationID] = useState('')
 	const [name, setName] = useState('')
 	const [email, setEmail] = useState('')
 	const [cpf, setCpf] = useState('')
+	const [password, setPassword] = useState('')
 	const [specialization, setSpecialization] = useState('')
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		onSubmit()
+		const userData = {
+			name,
+			email,
+			cpf,
+			password,
+			userType: userType + 1,
+		}
+		if (userType === 1) {
+			userData.specialization = specialization
+		}
+		onSubmit(userData)
 	}
 
 	return (
@@ -24,22 +34,13 @@ export const UserForm = ({ title, userType, onSubmit, isOpen, onClose }) => {
 				</Styled.Header>
 				<form onSubmit={handleSubmit}>
 					<TextInput
-						key="registrationID"
-						type="text"
-						id="registrationID"
-						onChange={(e) => setRegistrationID(e.target.value)}
-						value={registrationID}
-						required={true}
-						labelValue="Nome"
-					/>
-					<TextInput
 						key="name"
 						type="text"
 						id="name"
 						onChange={(e) => setName(e.target.value)}
 						value={name}
 						required={true}
-						labelValue="Matrícula"
+						labelValue="Nome"
 					/>
 					<TextInput
 						key="email"
@@ -58,6 +59,15 @@ export const UserForm = ({ title, userType, onSubmit, isOpen, onClose }) => {
 						value={cpf}
 						required={true}
 						labelValue="CPF"
+					/>
+					<TextInput
+						key="password"
+						type="password"
+						id="password"
+						onChange={(e) => setPassword(e.target.value)}
+						value={password}
+						required={true}
+						labelValue="Senha"
 					/>
 					{userType === 1 && (
 						<TextInput

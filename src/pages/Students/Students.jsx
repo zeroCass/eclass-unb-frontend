@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from 'react'
-import { fetchData } from '../../api'
+import { getData, postData } from '../../api'
 import { ItemsContent } from '../../components/ItemsContent'
 import { UserForm } from '../../components/UserForm'
 import { AuthContext } from '../../contexts/AuthContext/context'
 import { useAsync } from '../../hooks/useAsync'
 
 const fetchStudents = () => {
-	return fetchData('students')
+	return getData('students')
 }
 
 export const Students = () => {
@@ -41,6 +41,17 @@ export const Students = () => {
 		},
 	]
 
+	const registerStudent = async (data) => {
+		try {
+			const response = await postData('students', data)
+			console.log(response.data)
+			execute() // calls useAsync()
+		} catch (err) {
+			console.log(err.data)
+		}
+		setIsOpen(false)
+	}
+
 	return (
 		<section>
 			{loading && (
@@ -63,10 +74,10 @@ export const Students = () => {
 							<UserForm
 								title={'Cadastrar Estudante'}
 								isOpen={isOpen}
+								userType={2}
 								onClose={() => setIsOpen(false)}
-								onSubmit={() => {
-									console.log('Enviado')
-									setIsOpen(false)
+								onSubmit={(data) => {
+									registerStudent(data)
 								}}
 							/>
 						)
