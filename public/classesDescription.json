@@ -1,0 +1,163 @@
+[
+	{
+		"className": "Metodos de Programacao - Turma A",
+		"classID": 34,
+		"startTime": "16:00",
+		"endTime": "18:00",
+		"teacherID": 4,
+		"teacherName": "Jan Mendoca",
+		"studentsIDs": [1, 2, 5, 6],
+		"exams": [
+			{
+				"name": "Prova 1",
+				"examID": 1,
+				"startTime": "2023-01-01 16:00:00",
+				"endTime": "2023-01-01 18:00:00",
+				"isVisible": true,
+				"score": 10,
+				"teacherID": 4,
+				"questions": [
+					{
+						"questionID": 204,
+						"statement": "Por que eh melhor beber suco devagar ?",
+						"answer": "Porque fica mais suculento",
+						"teacherID": 4,
+						"teacherName": "Jan Mendoca",
+						"questionScore": 2.5
+					},
+					{
+						"questionID": 36,
+						"statement": "Quem descobriu o Bronzil",
+						"answer": "Predo Arvores Cabral",
+						"teacherID": 1,
+						"teacherName": "Maristela",
+						"questionScore": 7.5
+					}
+				]
+			},
+			{
+				"name": "Prova Substituta",
+				"examID": 2,
+				"startTime": "2023-01-01 14:00:00",
+				"endTime": "2023-01-01 16:00:00",
+				"isVisible": true,
+				"score": 10,
+				"teacherID": 4,
+				"questions": [
+					{
+						"questionID": 204,
+						"statement": "Por que eh melhor beber suco devagar ?",
+						"answer": "Porque fica mais suculento",
+						"teacherID": 4,
+						"teacherName": "Jan Mendoca",
+						"questionScore": 2.5
+					},
+					{
+						"questionID": 36,
+						"statement": "Quem descobriu o Bronzil",
+						"answer": "Predo Arvores Cabral",
+						"teacherID": 1,
+						"teacherName": "Maristela",
+						"questionScore": 7.5
+					}
+				]
+			}
+		]
+	},
+	{
+		"className": "Algoritimos de Programacao - Turma C",
+		"classID": 23,
+		"startTime": "14:00",
+		"endTime": "16:00",
+		"teacherID": 2,
+		"teacherName": "Carla Castanho",
+		"studentsIDs": [1, 2, 5, 6],
+		"exams": [
+			{
+				"name": "Prova 1",
+				"examID": 15,
+				"startTime": "2023-01-01 16:00:00",
+				"endTime": "2023-01-01 18:00:00",
+				"isVisible": true,
+				"score": 10,
+				"teacherID": 2,
+				"questions": [
+					{
+						"questionID": 204,
+						"statement": "Por que eh melhor beber suco devagar ?",
+						"answer": "Porque fica mais suculento",
+						"teacherID": 4,
+						"teacherName": "Jan Mendoca",
+						"questionScore": 2.5
+					},
+					{
+						"questionID": 36,
+						"statement": "Quem descobriu o Bronzil",
+						"answer": "Predo Arvores Cabral",
+						"teacherID": 1,
+						"teacherName": "Maristela",
+						"questionScore": 7.5
+					}
+				]
+			}
+		]
+	},
+	{
+		"className": "Organizacao e Arquitetura de Computadores - Turma A",
+		"classID": 12,
+		"startTime": "08:00",
+		"endTime": "10:00",
+		"teacherID": 3,
+		"teacherName": "Lamar",
+		"studentsIDs": [1, 2, 5, 6],
+		"exams": [
+			{
+				"name": "Prova 1",
+				"examID": 10,
+				"startTime": "2023-01-01 16:00:00",
+				"endTime": "2023-01-01 18:00:00",
+				"isVisible": true,
+				"score": 10,
+				"teacherID": 3,
+				"questions": [
+					{
+						"questionID": 204,
+						"statement": "Por que eh melhor beber suco devagar ?",
+						"answer": "Porque fica mais suculento",
+						"teacherID": 4,
+						"teacherName": "Jan Mendoca",
+						"questionScore": 2.5
+					}
+				]
+			},
+			{
+				"name": "Prova 2",
+				"examID": 12,
+				"startTime": "2023-01-01 14:00:00",
+				"endTime": "2023-01-01 16:00:00",
+				"isVisible": true,
+				"score": 10,
+				"teacherID": 3,
+				"questions": [
+					{
+						"questionID": 204,
+						"statement": "Por que eh melhor beber suco devagar ?",
+						"answer": "Porque fica mais suculento",
+						"teacherID": 4,
+						"teacherName": "Jan Mendoca",
+						"questionScore": 2.5
+					}
+				]
+			}
+		]
+	},
+	{
+		"className": "Banco de Dados - Turma B",
+		"classID": 67,
+		"startTime": "10:00",
+		"endTime": "12:00",
+		"teacherID": 1,
+		"teacherName": "Maristela",
+		"studentsIDs": [1, 2, 5, 6]
+	}
+]
