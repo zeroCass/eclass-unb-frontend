@@ -1,10 +1,18 @@
-import { useContext, useState } from 'react'
-import { Button } from '../../components/Button'
-import { ItemList } from '../../components/ItemList/ItemList'
+import { useContext, useEffect, useState } from 'react'
 import { ItemsContent } from '../../components/ItemsContent'
-import { Modal } from '../../components/Modal/'
 import { AuthContext } from '../../contexts/AuthContext/context'
+import { useAsync } from '../../hooks/useAsync'
 import { FormClasses } from './components/FormClasses'
+
+const fetchData = async () => {
+	return new Promise((resolve) => {
+		setTimeout(async () => {
+			const res = await fetch('./classes.json')
+			const data = await res.json()
+			resolve(data)
+		}, 2000)
+	})
+}
 
 export const Classes = () => {
 	const authContext = useContext(AuthContext)
@@ -12,51 +20,67 @@ export const Classes = () => {
 		authState: { userType },
 	} = authContext
 
+	const { execute, loading, data, error } = useAsync(fetchData)
 	const [isOpen, setIsOpen] = useState(false)
-	const showAddButton = userType !== 2
+	const [formattedClassData, setFormattedClassData] = useState([])
+	const shouldHasModal = userType !== 2
+
+	useEffect(() => {
+		execute()
+	}, [execute])
+
+	useEffect(() => {
+		if (data) {
+			const newData = data.map((item) => ({
+				title: item.className,
+				description: `Professor: ${item.teacherName}`,
+				timeDate: `${item.startTime} as ${item.endTime}`,
+			}))
+			setFormattedClassData(newData)
+		}
+	}, [data])
+
+	const itemButtons = [
+		{
+			label: 'Entrar',
+			onClick: () => console.log('Entrou em Turmas'),
+		},
+	]
 
 	return (
 		<section>
-			<ItemsContent
-				title={'Turmas'}
-				array={[
-					'Nome da Materia - Turma 1',
-					'Nome da Materia - Turma 2',
-					'Nome da Materia - Turma 3',
-				]}
-				placeholder={'Pesquise pela turma'}
-				ModalComponent={
-					<Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-						<FormClasses
-							onSubmit={(data) => {
-								console.log(data)
-								setIsOpen(false)
-							}}
-						/>
-					</Modal>
-				}
-				shouldOpenModal={showAddButton}
-				onOpenModal={() => setIsOpen(true)}
-				itemFormat={(item, index) => (
-					<li key={index}>
-						<ItemList
-							title={item}
-							description="Professor : Nome do Professor"
-							hasDate={true}
-							timeDate="horario: hh:mm as hh:mm"
-							buttonsComponents={[
-								<Button
-									key={0}
-									onClick={() => console.log('Entrou em Turmas')}
-									margin={'0'}
-								>
-									Entrar
-								</Button>,
-							]}
-						/>
-					</li>
-				)}
-			></ItemsContent>
+			{loading && (
+				<div>
+					<h2>LOADING...</h2>
+				</div>
+			)}
+			{error && (
+				<div>
+					<h2>ERROR: {error}</h2>
+				</div>
+			)}
+			{!loading && !error && (
+				<ItemsContent
+					title={'Turmas'}
+					contentArray={formattedClassData}
+					placeholder={'Pesquise pela turma'}
+					ModalComponent={
+						shouldHasModal && (
+							<FormClasses
+								isOpen={isOpen}
+								onClose={() => setIsOpen(false)}
+								onSubmit={(data) => {
+									console.log(data)
+									setIsOpen(false)
+								}}
+							/>
+						)
+					}
+					shouldHasModal={shouldHasModal}
+					onOpenModal={() => setIsOpen(true)}
+					itemButtons={itemButtons}
+				></ItemsContent>
+			)}
 		</section>
 	)
 }
