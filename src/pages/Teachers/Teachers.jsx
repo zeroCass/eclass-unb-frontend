@@ -1,17 +1,12 @@
 import { useContext, useEffect, useState } from 'react'
+import { getData, postData } from '../../api'
 import { ItemsContent } from '../../components/ItemsContent'
 import { UserForm } from '../../components/UserForm'
 import { AuthContext } from '../../contexts/AuthContext/context'
 import { useAsync } from '../../hooks/useAsync'
 
-const fetchData = async () => {
-	return new Promise((resolve) => {
-		setTimeout(async () => {
-			const res = await fetch('./teachers.json')
-			const data = await res.json()
-			resolve(data)
-		}, 2000)
-	})
+const fetchTeachers = async () => {
+	return getData('teachers')
 }
 
 export const Teachers = () => {
@@ -20,7 +15,7 @@ export const Teachers = () => {
 		authState: { userType },
 	} = authContext
 
-	const { execute, loading, data, error } = useAsync(fetchData)
+	const { execute, loading, data, error } = useAsync(fetchTeachers)
 	const [isOpen, setIsOpen] = useState(false)
 	const [formattedTeachers, setFormattedTeachers] = useState([])
 	const shouldHasModal = userType !== 2
@@ -46,6 +41,17 @@ export const Teachers = () => {
 		},
 	]
 
+	const registerTeacher = async (data) => {
+		try {
+			const response = await postData('teachers', data)
+			console.log(response.data)
+			execute() // calls useAsync()
+		} catch (err) {
+			console.log(err.data)
+		}
+		setIsOpen(false)
+	}
+
 	return (
 		<section>
 			{loading && (
@@ -70,9 +76,8 @@ export const Teachers = () => {
 								isOpen={isOpen}
 								userType={1}
 								onClose={() => setIsOpen(false)}
-								onSubmit={() => {
-									console.log('Enviado')
-									setIsOpen(false)
+								onSubmit={(data) => {
+									registerTeacher(data)
 								}}
 							/>
 						)
