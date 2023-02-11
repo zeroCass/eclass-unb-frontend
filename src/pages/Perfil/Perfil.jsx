@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Button } from '../../components/Button/styles'
 import { Modal } from '../../components/Modal/Modal'
 import { AuthContext } from '../../contexts/AuthContext/context'
@@ -23,25 +24,33 @@ export const Perfil = () => {
 	)
 
 	return (
-		<PageContainer>
-			<Modal isOpen={isOpen} onClose={() => setIsOpen(false)}></Modal>
-			<div className="perfil-box">
-				<div className="perfil-div">
-					<Image />
-					<Info className="info-div">
-						<p>Name: {authState.name}</p>
-						<p>Email: {authState.email}</p>
-						<p>Matricula: {authState.registrationID}</p>
-					</Info>
-					{renderButton('Alterar Senha')}
+		<section>
+			<PageContainer>
+				<Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+					<div>
+						<h3>
+							<Link to="/class-description">Ir para Turma X</Link>
+						</h3>
+					</div>
+				</Modal>
+				<div className="perfil-box">
+					<div className="perfil-div">
+						<Image />
+						<Info className="info-div">
+							<p>Name: {authState.name}</p>
+							<p>Email: {authState.email}</p>
+							<p>Matricula: {authState.registrationID}</p>
+						</Info>
+						{renderButton('Alterar Senha')}
+					</div>
+					<div className="buttons-div">
+						{authState.userType != 0 && renderButton('Minhas Turmas')}
+						{authState.userType === 2 && renderButton('Notas')}
+						{renderButton('Questões')}
+						{renderButton('Avaliações')}
+					</div>
 				</div>
-				<div className="buttons-div">
-					{authState.userType != 0 && renderButton('Minhas Turmas')}
-					{authState.userType === 2 && renderButton('Notas')}
-					{renderButton('Questões')}
-					{renderButton('Avaliações')}
-				</div>
-			</div>
-		</PageContainer>
+			</PageContainer>
+		</section>
 	)
 }
