@@ -6,17 +6,28 @@ export const useAsync = (fn) => {
 	const [error, setError] = useState(null)
 
 	const execute = useCallback(async () => {
+		let isCancelled = false // dont update state if unmount
 		setLoading(true)
 		setData(null)
 		setError(null)
 		try {
 			const response = await fn()
-			setLoading(false)
-			setData(response)
+			if (!isCancelled) {
+				setLoading(false)
+				setData(response)
+			}
 		} catch (err) {
-			setLoading(false)
-			setError(err)
+			if (!isCancelled) {
+				setLoading(false)
+				setError(err.message || 'An error occurred while fetching data.')
+			}
+		}
+
+		// unmount function
+		return () => {
+			isCancelled = true
 		}
 	}, [fn])
+
 	return { execute, loading, data, error }
 }
