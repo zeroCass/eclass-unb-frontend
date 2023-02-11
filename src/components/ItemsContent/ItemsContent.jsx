@@ -30,7 +30,6 @@ export const ItemsContent = ({
 			{ModalComponent}
 			<h1>{title}</h1>
 			<div className="search-bar">
-				{questionsSelection}
 				<input
 					placeholder={placeholder}
 					onChange={(event) => {
@@ -42,6 +41,7 @@ export const ItemsContent = ({
 				></input>
 				<BiSearchAlt className="icon-search"></BiSearchAlt>
 			</div>
+			{questionsSelection}
 			<SearchedItems
 				searchedArray={searchedArray}
 				itemButtons={itemButtons}
