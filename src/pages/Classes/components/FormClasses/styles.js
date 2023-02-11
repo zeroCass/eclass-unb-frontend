@@ -4,6 +4,7 @@ export const Container = styled.div`
 	padding: 15px;
 	width: 500px;
 	margin-bottom: 15px;
+	min-height: 480px;
 	height: auto;
 	& form div {
 		margin-top: 20px;
