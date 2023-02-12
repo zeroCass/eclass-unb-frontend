@@ -25,7 +25,7 @@ export const MainRoute = () => {
 				<Route path="/perfil/*">
 					<Route index element={<Perfil />} />
 				</Route>
-				<Route path="/class-description" element={<ClassDescription />} />
+				<Route path="/class-description/*" element={<ClassDescription />} />
 				<Route path="/subjects" element={<Subjects />} />
 				{userType === 0 && (
 					<>

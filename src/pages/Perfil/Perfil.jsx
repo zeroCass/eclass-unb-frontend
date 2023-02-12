@@ -1,14 +1,15 @@
 import { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { Button } from '../../components/Button/styles'
 import { Modal } from '../../components/Modal/Modal'
 import { AuthContext } from '../../contexts/AuthContext/context'
+import { ModalContent } from './components/ModalContent/ModalContent'
 import { Image, Info, PageContainer } from './components/PerfilContainer'
 
 export const Perfil = () => {
 	const authContext = useContext(AuthContext)
 	const { authState } = authContext
 	const [isOpen, setIsOpen] = useState(false)
+	const [modalContent, setModalContent] = useState('')
 
 	const renderButton = (text) => (
 		<Button
@@ -17,7 +18,10 @@ export const Perfil = () => {
 			height={'55px'}
 			fontSize={'18px'}
 			key={0}
-			onClick={() => setIsOpen(true)}
+			onClick={() => {
+				setModalContent(text)
+				setIsOpen(true)
+			}}
 		>
 			{text}
 		</Button>
@@ -27,11 +31,7 @@ export const Perfil = () => {
 		<section>
 			<PageContainer>
 				<Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-					<div>
-						<h3>
-							<Link to="/class-description">Ir para Turma X</Link>
-						</h3>
-					</div>
+					{ModalContent(modalContent)}
 				</Modal>
 				<div className="perfil-box">
 					<div className="perfil-div">
