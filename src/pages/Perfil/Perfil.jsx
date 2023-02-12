@@ -17,7 +17,7 @@ export const Perfil = () => {
 			width={'50%'}
 			height={'55px'}
 			fontSize={'18px'}
-			key={0}
+			key={text}
 			onClick={() => {
 				setModalContent(text)
 				setIsOpen(true)
