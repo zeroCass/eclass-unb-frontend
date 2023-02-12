@@ -1,6 +1,9 @@
-import { useLocation } from 'react-router-dom'
+import { useContext } from 'react'
+import { RiAddCircleFill } from 'react-icons/ri'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { Button } from '../../components/Button'
 import { ItemList } from '../../components/ItemList'
+import { AuthContext } from '../../contexts/AuthContext/context'
 import * as Styled from './styles'
 
 const ButtonsComponent = ({ itemButtons, dataItem }) => {
@@ -21,9 +24,17 @@ const ButtonsComponent = ({ itemButtons, dataItem }) => {
 }
 
 export const ClassDescription = () => {
+	const navigate = useNavigate()
 	const location = useLocation()
 	const classData = location.state
 	const exams = classData?.exams || null
+
+	const authContext = useContext(AuthContext)
+	const {
+		authState: { userType },
+	} = authContext
+
+	const shouldShowAddButton = userType !== 2
 
 	return (
 		<Styled.Container>
@@ -53,7 +64,10 @@ export const ClassDescription = () => {
 											itemButtons={[
 												{
 													label: 'Visualizar',
-													onClick: (data) => console.log(data),
+													onClick: (data) =>
+														navigate('/exam/details', {
+															state: data,
+														}),
 												},
 											]}
 										/>
@@ -64,6 +78,19 @@ export const ClassDescription = () => {
 					{!exams && (
 						<div>
 							<h2>Nao ha provas</h2>
+						</div>
+					)}
+					{shouldShowAddButton && (
+						<div className="add-button-container">
+							<button
+								onClick={() =>
+									navigate('/exam/create', {
+										state: { teacherName: classData.teacherName },
+									})
+								}
+							>
+								<RiAddCircleFill />
+							</button>
 						</div>
 					)}
 				</Styled.ListSection>
