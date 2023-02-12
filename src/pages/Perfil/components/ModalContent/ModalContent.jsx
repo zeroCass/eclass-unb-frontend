@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ModalsPerfil, MyClass } from './ModalsPerfil'
+import * as Styled from './styles'
 
 export const ModalContent = (modalContent) => {
 	const [classes, setClasses] = useState([])
@@ -16,15 +16,15 @@ export const ModalContent = (modalContent) => {
 	switch (modalContent) {
 		case 'Alterar Senha':
 			return (
-				<ModalsPerfil>
+				<Styled.ModalsPerfil>
 					<div className="title">
 						<h3>Alterar Senha</h3>
 					</div>
-				</ModalsPerfil>
+				</Styled.ModalsPerfil>
 			)
 		case 'Minhas Turmas':
 			return (
-				<ModalsPerfil>
+				<Styled.ModalsPerfil>
 					<div className="title">
 						<h3>Minhas Turmas</h3>
 					</div>
@@ -33,7 +33,7 @@ export const ModalContent = (modalContent) => {
 						<ul>
 							{classes.map((classes) => (
 								<li key={classes.classID}>
-									<MyClass className="info-div">
+									<Styled.MyClass className="info-div">
 										<h4>
 											<button
 												onClick={() =>
@@ -47,30 +47,30 @@ export const ModalContent = (modalContent) => {
 											- {classes.teacherName} ({classes.startTime} -
 											{classes.endTime})
 										</h4>
-									</MyClass>
+									</Styled.MyClass>
 								</li>
 							))}
 						</ul>
 					</div>
-				</ModalsPerfil>
+				</Styled.ModalsPerfil>
 			)
 		case 'Notas':
 			return (
-				<ModalsPerfil>
+				<Styled.ModalsPerfil>
 					<h3>Notas</h3>
-				</ModalsPerfil>
+				</Styled.ModalsPerfil>
 			)
 		case 'Questões':
 			return (
-				<ModalsPerfil>
+				<Styled.ModalsPerfil>
 					<h3>Questões</h3>
-				</ModalsPerfil>
+				</Styled.ModalsPerfil>
 			)
 		case 'Avaliações':
 			return (
-				<ModalsPerfil>
+				<Styled.ModalsPerfil>
 					<h3>Avaliações</h3>
-				</ModalsPerfil>
+				</Styled.ModalsPerfil>
 			)
 		default:
 			return null

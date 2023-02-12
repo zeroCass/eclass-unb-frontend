@@ -3,7 +3,7 @@ import { Button } from '../../components/Button/styles'
 import { Modal } from '../../components/Modal/Modal'
 import { AuthContext } from '../../contexts/AuthContext/context'
 import { ModalContent } from './components/ModalContent/ModalContent'
-import { Image, Info, PageContainer } from './components/PerfilContainer'
+import * as Styled from './components/styles'
 
 export const Perfil = () => {
 	const authContext = useContext(AuthContext)
@@ -29,18 +29,18 @@ export const Perfil = () => {
 
 	return (
 		<section>
-			<PageContainer>
+			<Styled.PageContainer>
 				<Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
 					{ModalContent(modalContent)}
 				</Modal>
 				<div className="perfil-box">
 					<div className="perfil-div">
-						<Image />
-						<Info className="info-div">
+						<Styled.Image />
+						<Styled.Info className="info-div">
 							<p>Name: {authState.name}</p>
 							<p>Email: {authState.email}</p>
 							<p>Matricula: {authState.registrationID}</p>
-						</Info>
+						</Styled.Info>
 						{renderButton('Alterar Senha')}
 					</div>
 					<div className="buttons-div">
@@ -50,7 +50,7 @@ export const Perfil = () => {
 						{renderButton('Avaliações')}
 					</div>
 				</div>
-			</PageContainer>
+			</Styled.PageContainer>
 		</section>
 	)
 }
