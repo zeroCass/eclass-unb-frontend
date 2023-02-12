@@ -1,0 +1,1 @@
+export { Exam } from './Exam'

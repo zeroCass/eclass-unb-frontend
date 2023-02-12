@@ -4,6 +4,8 @@ import { MainLayout } from '../components/MainLayout'
 import { AuthContext } from '../contexts/AuthContext/context'
 import { ClassDescription } from '../pages/ClassDescription'
 import { Classes } from '../pages/Classes'
+import { Exam } from '../pages/Exam/Exam'
+import { FormExam } from '../pages/FormExam'
 import { Perfil } from '../pages/Perfil'
 import { Questions } from '../pages/Questions'
 import { Students } from '../pages/Students'
@@ -26,6 +28,10 @@ export const MainRoute = () => {
 					<Route index element={<Perfil />} />
 				</Route>
 				<Route path="/class-description/*" element={<ClassDescription />} />
+				<Route path="/exam/*">
+					<Route path="details" element={<Exam />} />
+					<Route path="create" element={<FormExam />} />
+				</Route>
 				<Route path="/subjects" element={<Subjects />} />
 				{userType === 0 && (
 					<>
