@@ -15,7 +15,6 @@ export const ModalsPerfil = styled.div`
 			font-weight: 500;
 			font-size: 20px;
 		}
-		/*border: 1px solid green;*/
 	}
 
 	& .info-div {
@@ -23,13 +22,11 @@ export const ModalsPerfil = styled.div`
 		display: flex;
 		width: 95%;
 		align-items: center;
-		/*border: 1px solid blue;*/
 	}
 
 	li {
 		margin-left: 20px;
 	}
-	/*border: 1px solid red;*/
 `
 export const MyClass = styled.div`
 	display: flex;
