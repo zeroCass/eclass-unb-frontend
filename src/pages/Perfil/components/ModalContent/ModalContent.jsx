@@ -7,7 +7,7 @@ export const ModalContent = (modalContent) => {
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		fetch('classes.json')
+		fetch('classesDescription.json')
 			.then((res) => res.json())
 			.then((data) => setClasses(data))
 			.catch((error) => console.error(error))
