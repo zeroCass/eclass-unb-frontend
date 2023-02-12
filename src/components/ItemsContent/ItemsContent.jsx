@@ -15,15 +15,16 @@ export const ItemsContent = ({
 	questionsSelection,
 }) => {
 	const [text, setText] = useState('')
+	const timeoutRef = useRef(null)
+	const delaySearch = 500 // (dado em ms)
+
+	// logic to filter the right item by title
 	const searchedArray = useMemo(() => {
 		const lowerText = text.toLowerCase()
 		return contentArray.filter((item) =>
 			item.title.toLowerCase().includes(lowerText),
 		)
 	}, [text, contentArray])
-
-	const timeoutRef = useRef(null)
-	const delaySearch = 500 // (dado em ms)
 
 	return (
 		<Container>
