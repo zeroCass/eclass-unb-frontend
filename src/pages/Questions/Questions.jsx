@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import { ItemsContent } from '../../components/ItemsContent'
 import { AuthContext } from '../../contexts/AuthContext/context'
+import { QuestionDetails } from './components/QuestionDetails'
 import { QuestionsForm } from './components/QuestionsForm'
 import { QuestionsRadio } from './components/QuestionsRadio'
 
@@ -11,23 +12,25 @@ export const Questions = () => {
 		authState: { userType },
 	} = authContext
 
+	// state to handle fetch logic
 	const [data, setData] = useState([])
 	const [error, setError] = useState(null)
 	const [loading, setLoading] = useState(false)
+
+	const [isOpenDetails, setIsOpenDetails] = useState(false) // constrol modal details
+	const [questionDetails, setQuestionDetails] = useState(null) // state that is used by questionDetails
 
 	const [isOpen, setIsOpen] = useState(false)
 	const [formattedQuestions, setFormattedQuestions] = useState([])
 	const [questionType, setQuestionType] = useState('discursive')
 	const shouldHasModal = userType !== 2
 
-	console.log('renderizou', questionType)
-
+	// load the data accordingly with the questionType
 	const fetchData = async () => {
 		const url =
 			questionType === 'discursive'
 				? './questions.json'
 				: './questionsMC.json'
-		console.log(url)
 		return new Promise((resolve) => {
 			setTimeout(async () => {
 				const res = await fetch(url)
@@ -37,8 +40,8 @@ export const Questions = () => {
 		})
 	}
 
+	// handle the logic to calls the fetch data when mount and questionType changes
 	useEffect(() => {
-		console.log('useEffect')
 		setLoading(true)
 		fetchData()
 			.then((res) => setData(res))
@@ -46,20 +49,33 @@ export const Questions = () => {
 			.finally(() => setLoading(false))
 	}, [questionType])
 
+	// create the formatted data to display in ItemContent component
 	useEffect(() => {
 		if (data) {
-			const newData = data.map((item) => ({
-				title: item.statement,
-				description: `Professor: ${item.teacherName}`,
-			}))
+			const newData = data.map((item) => {
+				// set dataItem to correspond to the original data
+				const dataItem = data.find(
+					(data) => data.questionID === item.questionID,
+				)
+				return {
+					title: item.statement,
+					description: `Professor: ${item.teacherName}`,
+					dataItem,
+				}
+			})
 			setFormattedQuestions(newData)
 		}
 	}, [data])
 
+	// create the buttons array object to pass to the ItemList component
 	const itemButtons = [
 		{
 			label: 'Visualizar',
-			onClick: () => console.log('Visualizou questao'),
+			onClick: (dataItem) => {
+				// set the question Details and then open the modal passing the question deatils
+				setQuestionDetails(dataItem)
+				setIsOpenDetails(true)
+			},
 		},
 	]
 
@@ -76,28 +92,37 @@ export const Questions = () => {
 				</div>
 			)}
 			{!loading && !error && (
-				<ItemsContent
-					title={'Questoes'}
-					contentArray={formattedQuestions}
-					placeholder={'Pesquise pela questao'}
-					ModalComponent={
-						shouldHasModal && (
-							<QuestionsForm
-								isOpen={isOpen}
-								onClose={() => setIsOpen(false)}
-							/>
-						)
-					}
-					shouldHasModal={shouldHasModal}
-					onOpenModal={() => setIsOpen(true)}
-					itemButtons={itemButtons}
-					questionsSelection={
-						<QuestionsRadio
-							questionType={questionType}
-							setQuestionType={(type) => setQuestionType(type)}
+				<>
+					{
+						<QuestionDetails
+							isOpen={isOpenDetails}
+							questionDetails={questionDetails}
+							onClose={() => setIsOpenDetails(false)}
 						/>
 					}
-				/>
+					<ItemsContent
+						title={'Questoes'}
+						contentArray={formattedQuestions}
+						placeholder={'Pesquise pela questao'}
+						ModalComponent={
+							shouldHasModal && (
+								<QuestionsForm
+									isOpen={isOpen}
+									onClose={() => setIsOpen(false)}
+								/>
+							)
+						}
+						shouldHasModal={shouldHasModal}
+						onOpenModal={() => setIsOpen(true)}
+						itemButtons={itemButtons}
+						questionsSelection={
+							<QuestionsRadio
+								questionType={questionType}
+								setQuestionType={(type) => setQuestionType(type)}
+							/>
+						}
+					/>
+				</>
 			)}
 		</>
 	)

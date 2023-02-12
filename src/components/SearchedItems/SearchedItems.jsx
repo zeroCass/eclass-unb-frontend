@@ -2,12 +2,16 @@ import { Button } from '../Button'
 import { ItemList } from '../ItemList'
 import { Container } from './styles'
 
-const ButtonsComponent = ({ itemButtons }) => {
+const ButtonsComponent = ({ itemButtons, dataItem }) => {
 	return (
 		<>
 			{itemButtons &&
 				itemButtons.map((button, index) => (
-					<Button margin={'0 10px'} key={index} onClick={button.onClick}>
+					<Button
+						margin={'0 10px'}
+						key={index}
+						onClick={() => button.onClick(dataItem)}
+					>
 						{button.label}
 					</Button>
 				))}
@@ -17,6 +21,7 @@ const ButtonsComponent = ({ itemButtons }) => {
 
 export const SearchedItems = ({ searchedArray, itemButtons }) => {
 	return (
+		// for earch array item, create a ItemList component and the buttons passed as parameters
 		<Container>
 			<ul>
 				{searchedArray &&
@@ -28,7 +33,10 @@ export const SearchedItems = ({ searchedArray, itemButtons }) => {
 							hasIcon={item?.hasIcon}
 							timeDate={item?.timeDate}
 							buttonsComponents={
-								<ButtonsComponent itemButtons={itemButtons} />
+								<ButtonsComponent
+									dataItem={item?.dataItem}
+									itemButtons={itemButtons}
+								/>
 							}
 						/>
 					))}
