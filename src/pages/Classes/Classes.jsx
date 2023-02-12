@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { ItemsContent } from '../../components/ItemsContent'
 import { AuthContext } from '../../contexts/AuthContext/context'
 import { useAsync } from '../../hooks/useAsync'
@@ -7,7 +8,7 @@ import { FormClasses } from './components/FormClasses'
 const fetchData = async () => {
 	return new Promise((resolve) => {
 		setTimeout(async () => {
-			const res = await fetch('./classes.json')
+			const res = await fetch('./classesDescription.json')
 			const data = await res.json()
 			resolve(data)
 		}, 2000)
@@ -21,29 +22,40 @@ export const Classes = () => {
 	} = authContext
 
 	const { execute, loading, data, error } = useAsync(fetchData)
+	const navigate = useNavigate()
 	const [isOpen, setIsOpen] = useState(false)
 	const [formattedClassData, setFormattedClassData] = useState([])
+	// determines if the addButon and the modal should show up
 	const shouldHasModal = userType !== 2
 
+	// calls the useAsync execute function
 	useEffect(() => {
 		execute()
 	}, [execute])
 
+	// return a formatted object
 	useEffect(() => {
 		if (data) {
-			const newData = data.map((item) => ({
-				title: item.className,
-				description: `Professor: ${item.teacherName}`,
-				timeDate: `${item.startTime} as ${item.endTime}`,
-			}))
+			const newData = data.map((item) => {
+				// set dataItem to correspond to the original data
+				const dataItem = data.find((data) => data.classID === item.classID)
+				return {
+					classID: item.classID,
+					title: item.className,
+					description: `Professor: ${item.teacherName}`,
+					timeDate: `${item.startTime} as ${item.endTime}`,
+					dataItem,
+				}
+			})
 			setFormattedClassData(newData)
 		}
 	}, [data])
 
+	// create the buttons to the ItemList Component
 	const itemButtons = [
 		{
 			label: 'Entrar',
-			onClick: () => console.log('Entrou em Turmas'),
+			onClick: (item) => navigate('/class-description', { state: item }),
 		},
 	]
 
@@ -60,6 +72,7 @@ export const Classes = () => {
 				</div>
 			)}
 			{!loading && !error && (
+				// create the ItemsContent component with the Modal content
 				<ItemsContent
 					title={'Turmas'}
 					contentArray={formattedClassData}
