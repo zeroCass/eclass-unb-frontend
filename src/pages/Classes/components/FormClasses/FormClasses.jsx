@@ -115,6 +115,7 @@ export const FormClasses = ({ onSubmit, isOpen, onClose }) => {
 							/>
 							<Styled.Select onClick={handleOpenSearchModal}>
 								<SearchModal
+									placeholder={'Nome da Materia'}
 									data={coursesData}
 									isOpen={openSearchModal}
 									onClose={() => setOpenSearchModal(false)}
