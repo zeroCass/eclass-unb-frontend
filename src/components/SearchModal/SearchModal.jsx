@@ -4,11 +4,19 @@ import { Button } from '../Button'
 import { Modal } from '../Modal'
 import * as Styled from './styles'
 
-export const SearchModal = ({ isOpen, onClose, onSelection, data }) => {
+export const SearchModal = ({
+	isOpen,
+	onClose,
+	onSelection,
+	placeholder,
+	searchIsAvailable = true,
+	multipleSelections = false,
+	data,
+}) => {
 	const [searchTerm, setSearchTerm] = useState('')
 	const [filteredData, setFilteredData] = useState(data)
 	const [dataList, setDataList] = useState(data)
-	const [selectedData, setSelectedData] = useState(null)
+	const [selectedData, setSelectedData] = useState([])
 
 	// search effect
 	useEffect(() => {
@@ -19,8 +27,27 @@ export const SearchModal = ({ isOpen, onClose, onSelection, data }) => {
 		)
 	}, [searchTerm, dataList])
 
+	// update state when recieve data changes
+	useEffect(() => {
+		setFilteredData(data)
+		setDataList(data)
+	}, [data])
+
 	const handleSelection = (item) => {
-		setSelectedData(item)
+		if (!multipleSelections) {
+			setSelectedData(item)
+			setDataList([item, ...dataList.filter((d) => d.id !== item.id)])
+			return
+		}
+
+		let newSelectedData = [...selectedData]
+		const itemIndex = newSelectedData.findIndex((d) => d.id === item.id)
+		if (itemIndex === -1) {
+			newSelectedData.push(item)
+		} else {
+			newSelectedData.splice(itemIndex, 1)
+		}
+		setSelectedData(newSelectedData)
 		setDataList([item, ...dataList.filter((d) => d.id !== item.id)])
 	}
 
@@ -29,26 +56,40 @@ export const SearchModal = ({ isOpen, onClose, onSelection, data }) => {
 		onSelection(selectedData)
 	}
 
+	const seletedEffect = (item) => {
+		if (!multipleSelections) {
+			return selectedData?.id === item.id ? 'selected' : ''
+		}
+		for (const selected of selectedData) {
+			if (selected.id === item.id) {
+				return 'selected'
+			}
+		}
+		return ''
+	}
+
 	if (!isOpen) return null
 
 	return (
 		<Modal isOpen={isOpen} onClose={onClose}>
 			<Styled.Container>
-				<Styled.Search>
-					<input
-						type="text"
-						value={searchTerm}
-						onChange={(e) => setSearchTerm(e.target.value)}
-						placeholder={'Nome da Materia'}
-					/>
-					<BiSearchAlt className="icon-search"></BiSearchAlt>
-				</Styled.Search>
+				{searchIsAvailable && (
+					<Styled.Search>
+						<input
+							type="text"
+							value={searchTerm}
+							onChange={(e) => setSearchTerm(e.target.value)}
+							placeholder={placeholder}
+						/>
+						<BiSearchAlt className="icon-search"></BiSearchAlt>
+					</Styled.Search>
+				)}
 				<Styled.ItemsContainer>
 					<div>
 						{filteredData.map((item) => (
 							<div
 								className={`item-list
-								${selectedData?.id === item.id ? 'selected' : ''}`}
+								${seletedEffect(item)}`}
 								onClick={() => handleSelection(item)}
 								key={item.id}
 							>

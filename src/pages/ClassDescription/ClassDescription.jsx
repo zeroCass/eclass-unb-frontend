@@ -85,7 +85,10 @@ export const ClassDescription = () => {
 							<button
 								onClick={() =>
 									navigate('/exam/create', {
-										state: { teacherName: classData.teacherName },
+										state: {
+											teacherID: classData.teacherID,
+											classID: classData.classID,
+										},
 									})
 								}
 							>
