@@ -12,12 +12,15 @@ export const Login = () => {
 	const authContext = useContext(AuthContext)
 	const { authDispatch } = authContext
 
-	const [registrationID, setRegistrationID] = useState('')
+	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
 	const handleSubmit = (event) => {
 		event.preventDefault()
-		login(authDispatch)
+		login(authDispatch, {
+			email,
+			password,
+		})
 	}
 
 	return (
@@ -29,13 +32,13 @@ export const Login = () => {
 				buttonsContainer={<ButtonsContainer />}
 				formComponents={[
 					<TextInput
-						key="registrationID"
+						key="email"
 						type="text"
-						id="registrationID"
-						onChange={(e) => setRegistrationID(e.target.value)}
-						value={registrationID}
+						id="email"
+						onChange={(e) => setEmail(e.target.value)}
+						value={email}
 						required={true}
-						labelValue="Matrícula"
+						labelValue="Email"
 					/>,
 					<TextInput
 						key="password"
