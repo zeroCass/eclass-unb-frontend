@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { getData, postData } from '../../api'
+import { getData } from '../../api'
 import { ItemsContent } from '../../components/ItemsContent'
 import { UserForm } from '../../components/UserForm'
 import { AuthContext } from '../../contexts/AuthContext/context'
@@ -18,7 +18,7 @@ export const Students = () => {
 	const { execute, loading, data, error } = useAsync(fetchStudents)
 	const [isOpen, setIsOpen] = useState(false)
 	const [formattedStudents, setFormattedStudents] = useState([])
-	const shouldHasModal = userType !== 2
+	const shouldHasModal = userType === 1
 
 	useEffect(() => {
 		execute()
@@ -26,10 +26,14 @@ export const Students = () => {
 
 	useEffect(() => {
 		if (data) {
-			const newData = data.map((item) => ({
-				title: item.name,
-				description: item.email,
-			}))
+			const newData = data.map((item) => {
+				const dataItem = data.find((data) => data.id === item.id)
+				return {
+					title: item.name,
+					description: item.email,
+					dataItem,
+				}
+			})
 			setFormattedStudents(newData)
 		}
 	}, [data])
@@ -40,17 +44,6 @@ export const Students = () => {
 			onClick: () => console.log('Visualizar Aluno'),
 		},
 	]
-
-	const registerStudent = async (data) => {
-		try {
-			const response = await postData('students', data)
-			console.log(response.data)
-			execute() // calls useAsync()
-		} catch (err) {
-			console.log(err.data)
-		}
-		setIsOpen(false)
-	}
 
 	return (
 		<section>
@@ -74,11 +67,8 @@ export const Students = () => {
 							<UserForm
 								title={'Cadastrar Estudante'}
 								isOpen={isOpen}
-								userType={2}
+								userType={3}
 								onClose={() => setIsOpen(false)}
-								onSubmit={(data) => {
-									registerStudent(data)
-								}}
 							/>
 						)
 					}

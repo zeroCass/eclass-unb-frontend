@@ -18,8 +18,32 @@ export const getData = async (endpoint) => {
 		const response = await axios.get(`${baseURL}/${endpoint}/`)
 		return response.data
 	} catch (error) {
-		console.error(error)
-		return error
+		window.alert(
+			`(STATUS-CODE: ${error.response.status}) errors: ${error.response.data} - ${error.response.message}`,
+		)
+	}
+}
+
+export const getDatabyID = async (endpoint, id) => {
+	try {
+		const response = await axios.get(`${baseURL}/${endpoint}/${id}/`)
+		return response.data
+	} catch (error) {
+		window.alert(
+			`(STATUS-CODE: ${error.response.status}) errors: ${error.response.data} - ${error.response.message}`,
+		)
+	}
+}
+
+export const putDataById = async (endpoint, id, data) => {
+	try {
+		console.log(`${baseURL}/${endpoint}/${id}/`, data)
+		const response = await axios.put(`${baseURL}/${endpoint}/${id}/`, data)
+		return response.data
+	} catch (error) {
+		window.alert(
+			`(STATUS-CODE: ${error.response.status}) errors: ${error.response.data} - ${error.response.message}`,
+		)
 	}
 }
 
@@ -28,7 +52,8 @@ export const postData = async (endpoint, data) => {
 		const response = await axios.post(`${baseURL}/${endpoint}/`, data)
 		return response.data
 	} catch (error) {
-		console.error(error)
-		return error
+		window.alert(
+			`(STATUS-CODE: ${error.response.status}) errors: ${error.response.data} - ${error.response.message}`,
+		)
 	}
 }

@@ -1,27 +1,35 @@
 import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { getData, postData, putDataById } from '../../api'
 import { ItemsContent } from '../../components/ItemsContent'
 import { AuthContext } from '../../contexts/AuthContext/context'
 import { useAsync } from '../../hooks/useAsync'
 import { FormClasses } from './components/FormClasses'
 
-const fetchData = async () => {
-	return new Promise((resolve) => {
-		setTimeout(async () => {
-			const res = await fetch('./classesDescription.json')
-			const data = await res.json()
-			resolve(data)
-		}, 2000)
-	})
+/*eslint-disable */
+const fetchClasses = () => {
+	return getData('classes')
+}
+
+const postClassData = (classData) => {
+	return postData('classes', classData)
+}
+
+const subscribeToClass = async (classData, studentID) => {
+	const newStudents = classData.students
+	newStudents.push(studentID)
+	console.log(newStudents)
+	await putDataById('class', classData.id, { students: newStudents })
 }
 
 export const Classes = () => {
 	const authContext = useContext(AuthContext)
 	const {
 		authState: { userType },
+		authState,
 	} = authContext
 
-	const { execute, loading, data, error } = useAsync(fetchData)
+	const { execute, loading, data, error } = useAsync(fetchClasses)
 	const navigate = useNavigate()
 	const [isOpen, setIsOpen] = useState(false)
 	const [formattedClassData, setFormattedClassData] = useState([])
@@ -38,12 +46,19 @@ export const Classes = () => {
 		if (data) {
 			const newData = data.map((item) => {
 				// set dataItem to correspond to the original data
-				const dataItem = data.find((data) => data.classID === item.classID)
+				const dataItem = data.find((data) => data.id === item.id)
+
+				//get the dates
+				const startTime = new Date(item.startTime)
+				const endTime = new Date(item.endTime)
+
 				return {
-					classID: item.classID,
-					title: item.className,
-					description: `Professor: ${item.teacherName}`,
-					timeDate: `${item.startTime} as ${item.endTime}`,
+					classID: item.id,
+					title: `${item.subject.name} - ${item.name}`,
+					description: `Professores: ${item?.teachers.map(
+						(teacher) => teacher.name,
+					)}`,
+					timeDate: `${startTime.getHours()}: ${startTime.getMinutes()} as ${endTime.getHours()}: ${endTime.getMinutes()}`,
 					dataItem,
 				}
 			})
@@ -51,13 +66,35 @@ export const Classes = () => {
 		}
 	}, [data])
 
+	const isSubscribe = (classDetails) => {
+		const checked = classDetails?.students.filter(
+			(studentID) => studentID === authState.id,
+		)
+		return checked.length > 0
+	}
+
 	// create the buttons to the ItemList Component
 	const itemButtons = [
 		{
-			label: 'Entrar',
-			onClick: (item) => navigate('/class-description', { state: item }),
+			label: 'Visualizar',
+			onClick: (classDetails) =>
+				navigate('/class-description', { state: classDetails }),
 		},
 	]
+
+	userType === 3 &&
+		itemButtons.push({
+			label: 'Entrar',
+			onClick: (classDetails) => {
+				if (isSubscribe(classDetails)) {
+					window.alert('Voce ja esta inscrito nessa turma')
+				}
+				if (!isSubscribe(classDetails)) {
+					subscribeToClass(classDetails, authState.id)
+					navigate('/class-description', { state: classDetails })
+				}
+			},
+		})
 
 	return (
 		<section>
@@ -82,8 +119,9 @@ export const Classes = () => {
 							<FormClasses
 								isOpen={isOpen}
 								onClose={() => setIsOpen(false)}
-								onSubmit={(data) => {
-									console.log(data)
+								onSubmit={(classData) => {
+									console.log(classData)
+									postClassData(classData)
 									setIsOpen(false)
 								}}
 							/>

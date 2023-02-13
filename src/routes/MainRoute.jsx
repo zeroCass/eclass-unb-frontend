@@ -33,7 +33,7 @@ export const MainRoute = () => {
 					<Route path="create" element={<FormExam />} />
 				</Route>
 				<Route path="/subjects" element={<Subjects />} />
-				{userType === 0 && (
+				{userType === 1 && (
 					<>
 						<Route path="/students" element={<Students />} />
 						<Route path="/teachers" element={<Teachers />} />

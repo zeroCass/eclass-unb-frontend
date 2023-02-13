@@ -1,61 +1,62 @@
 /* eslint-disable */
-import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useContext, useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { getDatabyID, postData } from '../../api'
 import { Button } from '../../components/Button'
 import { SearchModal } from '../../components/SearchModal'
 import { TextInput } from '../../components/TextInput'
+import { AuthContext } from '../../contexts/AuthContext/context'
 import { SelectedQuestions } from './SelectedQuestions/SelectedQuestions'
 import * as Styled from './styles'
 
+const onSubmit = (data) => {
+	postData('exams', data)
+}
+
 export const FormExam = () => {
+	const authContext = useContext(AuthContext)
+	const { authState } = authContext
+
 	const location = useLocation()
 	const classDetails = location.state
-	// console.log(classDetails)
+	const navigate = useNavigate()
 
 	const [name, setName] = useState('')
-	const [startTime, setStartTime] = useState('')
-	const [endTime, setEndTime] = useState('')
+	const [startAt, setStartAt] = useState(new Date())
+	const [endAt, setEndAt] = useState(new Date())
 	const [isVisible, setVisible] = useState('true')
 
 	// state to handle fetch logic
-	const [error, setError] = useState(null)
 	const [loading, setLoading] = useState(false)
 
 	const [questions, setQuestions] = useState([])
 	const [selectedQuestions, setSelectedQuestions] = useState([])
 	const [isModalOpen, setIsModalOpen] = useState(false)
 
-	const fetchData = async () => {
-		const url = '/questions.json'
-		return new Promise((resolve) => {
-			setTimeout(async () => {
-				const res = await fetch(url, {
-					headers: {
-						'Content-Type': 'application/json',
-						Accept: 'application/json',
-					},
-				})
-				const data = await res.json()
-				resolve(data)
-			}, 2000)
-		})
+	const fetchQuestions = async () => {
+		const teacherData = await getDatabyID('teacher', authState.id)
+		const dissertativeQuestion = teacherData.discursiveQuestions
+		const multipleQuestions = teacherData.multipleQuestions
+		return [...dissertativeQuestion, ...multipleQuestions]
 	}
 
 	// load teachers questions on mount
 	useEffect(() => {
 		setLoading(true)
-		fetchData()
+		fetchQuestions()
 			.then((res) => {
 				const formattedData = res.map((question) => {
 					return {
 						...question,
-						id: question.questionID,
 						name: question.statement,
+						questionType: question.option1
+							? 'multipleChoice'
+							: 'dissertative',
 					}
 				})
 				setQuestions(formattedData)
 			})
-			.catch((err) => setError(err.message || 'error!!!'))
+			.catch((err) => window.alert(err))
 			.finally(() => setLoading(false))
 	}, [])
 
@@ -76,16 +77,31 @@ export const FormExam = () => {
 
 	const handleOnSubmit = (event) => {
 		event.preventDefault()
+		const multipleQuestions = selectedQuestions
+			.filter((question) => {
+				if (question.questionType === 'multipleChoice') return question.id
+			})
+			.map((question) => question.id)
+		const discursiveQuestions = selectedQuestions
+			.filter((question) => {
+				if (question.questionType === 'dissertative') return question.id
+			})
+			.map((question) => question.id)
 		const sendData = {
-			teacherID: classDetails.teacherID,
-			classID: classDetails.classID,
 			name,
-			startTime,
-			endTime,
-			isVisible,
-			questions: selectedQuestions,
+			isVisible: isVisible === 'true',
+			startAt,
+			endAt,
+			score: 0.0,
+			students: [],
+			teacher: authState.id,
+			classe: classDetails.classID,
+			multipleQuestions,
+			discursiveQuestions,
 		}
 		console.log(sendData)
+		onSubmit(sendData)
+		navigate('/classes')
 	}
 
 	return (
@@ -124,22 +140,22 @@ export const FormExam = () => {
 									</Styled.Input>
 									<Styled.Input>
 										<TextInput
-											key="startTime"
+											key="startAt"
 											type="text"
-											id="startTime"
-											onChange={(e) => setStartTime(e.target.value)}
-											value={startTime}
+											id="startAt"
+											onChange={(e) => setStartAt(e.target.value)}
+											value={startAt}
 											required={true}
 											labelValue="Horario do Comeco"
 										/>
 									</Styled.Input>
 									<Styled.Input>
 										<TextInput
-											key="endTime"
+											key="endAt"
 											type="text"
-											id="endTime"
-											onChange={(e) => setEndTime(e.target.value)}
-											value={endTime}
+											id="endAt"
+											onChange={(e) => setEndAt(e.target.value)}
+											value={endAt}
 											required={true}
 											labelValue="Horario do Fim"
 										/>

@@ -3,7 +3,12 @@ import { RiQuestionAnswerLine } from 'react-icons/ri'
 import { Modal } from '../../../../components/Modal'
 import * as Styled from './styles'
 
-export const QuestionDetails = ({ isOpen, onClose, questionDetails }) => {
+export const QuestionDetails = ({
+	isOpen,
+	onClose,
+	questionDetails,
+	multipleChoices = [],
+}) => {
 	const [showAnswer, setShowAnswer] = useState(false)
 
 	return (
@@ -15,6 +20,11 @@ export const QuestionDetails = ({ isOpen, onClose, questionDetails }) => {
 
 				<div className="quest-div ">
 					<h4>{questionDetails?.statement}</h4>
+					{multipleChoices.map((choice) => (
+						<div key={choice}>
+							<p>{choice}</p>
+						</div>
+					))}
 				</div>
 				<Styled.AnswerButton onClick={() => setShowAnswer(!showAnswer)}>
 					<div className="icon">

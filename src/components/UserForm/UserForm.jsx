@@ -1,10 +1,16 @@
 import { useState } from 'react'
+import { postData } from '../../api'
 import { Button } from '../../components/Button'
 import { Modal } from '../Modal'
 import { TextInput } from '../TextInput'
 import * as Styled from './styles'
 
-export const UserForm = ({ title, userType, onSubmit, isOpen, onClose }) => {
+const onSubmit = (userData, userType) => {
+	if (userType === 2) postData('teachers', userData)
+	if (userType === 3) postData('students', userData)
+}
+
+export const UserForm = ({ title, userType, isOpen, onClose }) => {
 	const [name, setName] = useState('')
 	const [email, setEmail] = useState('')
 	const [cpf, setCpf] = useState('')
@@ -18,12 +24,12 @@ export const UserForm = ({ title, userType, onSubmit, isOpen, onClose }) => {
 			email,
 			cpf,
 			password,
-			userType: userType + 1,
 		}
-		if (userType === 1) {
+		if (userType === 2) {
 			userData.specialization = specialization
 		}
-		onSubmit(userData)
+		onSubmit(userData, userType)
+		onClose()
 	}
 
 	return (
@@ -69,7 +75,7 @@ export const UserForm = ({ title, userType, onSubmit, isOpen, onClose }) => {
 						required={true}
 						labelValue="Senha"
 					/>
-					{userType === 1 && (
+					{userType === 2 && (
 						<TextInput
 							key="specialization"
 							type="text"
