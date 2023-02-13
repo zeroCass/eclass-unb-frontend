@@ -28,7 +28,7 @@ export const ModalsPerfil = styled.div`
 		margin-left: 20px;
 	}
 `
-export const MyClass = styled.div`
+export const Classes = styled.div`
 	display: flex;
 	align-items: center;
 

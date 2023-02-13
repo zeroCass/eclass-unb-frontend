@@ -1,17 +1,28 @@
 import { useState } from 'react'
+import { postData } from '../../../../api'
 import { Button } from '../../../../components/Button'
 import { Modal } from '../../../../components/Modal'
 import { TextInput } from '../../../../components/TextInput'
 import * as Styled from './styles'
 
-export const SubjectsForm = ({ onSubmit, isOpen, onClose }) => {
+const onSubmit = (subjectData) => {
+	postData('subjects', subjectData)
+}
+
+export const SubjectsForm = ({ isOpen, onClose }) => {
 	const [name, setName] = useState('')
 	const [course, setCourse] = useState('')
 	const [description, setDescription] = useState('')
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		onSubmit()
+		onSubmit({
+			name,
+			description,
+			teachers: [],
+			classes: [],
+		})
+		onClose()
 	}
 	return (
 		<Modal isOpen={isOpen} onClose={onClose}>

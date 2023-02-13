@@ -1,31 +1,41 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { getData } from '../../../../api'
 import { Button } from '../../../../components/Button'
 import { Modal } from '../../../../components/Modal'
 import { SearchModal } from '../../../../components/SearchModal'
 import { TextInput } from '../../../../components/TextInput'
+import { AuthContext } from '../../../../contexts/AuthContext/context'
 import * as Styled from './styles'
 
-const fetchData = async () => {
-	return new Promise((resolve) => {
-		setTimeout(async () => {
-			const res = await fetch('./courses.json')
-			const data = await res.json()
-			resolve(data)
-		}, 2000)
-	})
+const fetchSubjects = async (teacherID) => {
+	const subjects = await getData('subjects')
+	const filteredSubjects = subjects.filter((subject) =>
+		subject.teachers.find((teacher) => teacher.id === teacherID),
+	)
+	return filteredSubjects
 }
 
 export const FormClasses = ({ onSubmit, isOpen, onClose }) => {
+	const authContext = useContext(AuthContext)
+	const { authState } = authContext
+
 	const [isLoading, setLoading] = useState(false)
 	const [coursesData, setCoursesData] = useState([])
 
-	const [classNameID, setClassNameID] = useState('')
-	const [capacity, setCapacity] = useState('')
-	const [startTime, setStartTime] = useState('')
-	const [endTime, setEndTime] = useState('')
+	const [name, setClassNameID] = useState('')
+	const [size, setCapacity] = useState('')
+	const [period, setPeriod] = useState('')
+	const [startTime, setStartTime] = useState(new Date())
+	const [endTime, setEndTime] = useState(new Date())
 	const [password, setPassword] = useState('')
 	const [subject, setSubject] = useState(null)
 	const [openSearchModal, setOpenSearchModal] = useState(false)
+
+	const formattedTime = {
+		hour: '2-digit',
+		minute: '2-digit',
+		dateStyle: undefined,
+	}
 
 	const handleSearch = (item) => {
 		setSubject(item)
@@ -34,7 +44,7 @@ export const FormClasses = ({ onSubmit, isOpen, onClose }) => {
 	const handleOpenSearchModal = async () => {
 		setLoading(true)
 		try {
-			const data = await fetchData()
+			const data = await fetchSubjects(authState.id)
 			setCoursesData(data)
 			setOpenSearchModal(true)
 		} catch (e) {
@@ -47,12 +57,17 @@ export const FormClasses = ({ onSubmit, isOpen, onClose }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		onSubmit({
-			classNameID,
-			capacity,
+			name,
+			size: parseInt(size),
 			startTime,
 			endTime,
 			password,
-			subject,
+			period: parseInt(period),
+			subject: subject.id,
+			createAt: new Date(),
+			students: [],
+			teachers: authState.userType === 2 ? [authState.id] : [],
+			exams: [],
 		})
 	}
 
@@ -70,20 +85,20 @@ export const FormClasses = ({ onSubmit, isOpen, onClose }) => {
 						</Styled.Header>
 						<form onSubmit={handleSubmit}>
 							<TextInput
-								key="classNameID"
+								key="name"
 								type="text"
-								id="classNameID"
+								id="name"
 								onChange={(e) => setClassNameID(e.target.value)}
-								value={classNameID}
+								value={name}
 								required={true}
 								labelValue="Nome da Turma"
 							/>
 							<TextInput
-								key="capacity"
+								key="size"
 								type="text"
-								id="capacity"
+								id="size"
 								onChange={(e) => setCapacity(e.target.value)}
-								value={capacity}
+								value={size}
 								required={true}
 								labelValue="Capacidade da Turma"
 							/>
@@ -92,8 +107,9 @@ export const FormClasses = ({ onSubmit, isOpen, onClose }) => {
 								type="text"
 								id="startTime"
 								onChange={(e) => setStartTime(e.target.value)}
-								value={startTime}
+								value={startTime.toLocaleDateString([], formattedTime)}
 								required={true}
+								disabled={true}
 								labelValue="Horário de Início"
 							/>
 							<TextInput
@@ -101,9 +117,19 @@ export const FormClasses = ({ onSubmit, isOpen, onClose }) => {
 								type="text"
 								id="endTime"
 								onChange={(e) => setEndTime(e.target.value)}
-								value={endTime}
+								value={endTime.toLocaleDateString([], formattedTime)}
 								required={true}
+								disabled={true}
 								labelValue="Horário de Fim"
+							/>
+							<TextInput
+								key="period"
+								type="text"
+								id="period"
+								onChange={(e) => setPeriod(e.target.value)}
+								value={period}
+								required={true}
+								labelValue="Semestre"
 							/>
 							<TextInput
 								key="password"

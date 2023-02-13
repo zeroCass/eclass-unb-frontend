@@ -7,6 +7,7 @@ export const TextInput = ({
 	value,
 	required,
 	labelValue,
+	disabled = false,
 }) => {
 	return (
 		<Styled.TextField>
@@ -17,6 +18,7 @@ export const TextInput = ({
 				onChange={onChange}
 				value={value}
 				required={required}
+				disabled={disabled}
 			/>
 			<label htmlFor={id}>{labelValue}</label>
 		</Styled.TextField>

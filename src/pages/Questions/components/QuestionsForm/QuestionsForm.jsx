@@ -1,30 +1,53 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { postData } from '../../../../api'
 import { Button } from '../../../../components/Button'
 import { Modal } from '../../../../components/Modal'
+import { AuthContext } from '../../../../contexts/AuthContext/context'
 import * as Styled from './styles'
 
-export const QuestionsForm = ({ onSubmit, isOpen, onClose }) => {
+const onSubmit = (url, questionData) => {
+	console.log(url, questionData)
+	postData(url, questionData)
+}
+
+export const QuestionsForm = ({ isOpen, onClose }) => {
+	const authContext = useContext(AuthContext)
+	const { authState } = authContext
+
 	const [statement, setStatement] = useState('')
 	const [isVisible, setIsVisible] = useState('false')
 	const [answer, setAnswer] = useState('')
 	const [multipleChoice, setMultipleChoice] = useState('false')
-	const [optionA, setOptionA] = useState('')
-	const [optionB, setOptionB] = useState('')
-	const [optionC, setOptionC] = useState('')
-	const [optionD, setOptionD] = useState('')
+	const [option1, setOption1] = useState('')
+	const [option2, setOption2] = useState('')
+	const [option3, setOption3] = useState('')
+	const [option4, setOption4] = useState('')
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		onSubmit({
-			statement,
-			isVisible,
-			answer,
-			multipleChoice,
-			optionA,
-			optionB,
-			optionC,
-			optionD,
-		})
+		if (authState.userType === 2) {
+			const questionsData = {
+				statement,
+				is_visibility: isVisible === 'true',
+				answer,
+				students: [],
+				teacher: authState.id,
+			}
+			if (multipleChoice === 'false') {
+				onSubmit('discursive-questions', questionsData)
+			} else {
+				const multipleQuestions = {
+					...questionsData,
+					option1,
+					option2,
+					option3,
+					option4,
+					answer: parseInt(answer),
+				}
+				onSubmit('multiple-questions', multipleQuestions)
+			}
+			onClose()
+		}
 	}
 	return (
 		<Modal isOpen={isOpen} onClose={onClose}>
@@ -103,42 +126,42 @@ export const QuestionsForm = ({ onSubmit, isOpen, onClose }) => {
 					{multipleChoice === 'true' && (
 						<>
 							<Styled.TextArea>
-								<label htmlFor="option-b">Opção A:</label>
+								<label htmlFor="option-b">Opção 1:</label>
 								<textarea
 									name="option-a"
-									value={optionA}
-									onChange={(e) => setOptionA(e.target.value)}
+									value={option1}
+									onChange={(e) => setOption1(e.target.value)}
 									cols={60}
 									rows={2}
 									required
 								/>
 							</Styled.TextArea>
 							<Styled.TextArea>
-								<label htmlFor="option-b">Opção B:</label>
+								<label htmlFor="option-b">Opção 2:</label>
 								<textarea
 									name="option-b"
-									value={optionB}
-									onChange={(e) => setOptionB(e.target.value)}
+									value={option2}
+									onChange={(e) => setOption2(e.target.value)}
 									cols={60}
 									rows={2}
 									required
 								/>
 								<Styled.TextArea>
-									<label htmlFor="option-c">Opção C:</label>
+									<label htmlFor="option-c">Opção 3:</label>
 									<textarea
 										name="option-c"
-										value={optionC}
-										onChange={(e) => setOptionC(e.target.value)}
+										value={option3}
+										onChange={(e) => setOption3(e.target.value)}
 										cols={60}
 										rows={2}
 									/>
 								</Styled.TextArea>
 								<Styled.TextArea>
-									<label htmlFor="option-d">Opção D:</label>
+									<label htmlFor="option-d">Opção 4:</label>
 									<textarea
 										name="option-d"
-										value={optionD}
-										onChange={(e) => setOptionD(e.target.value)}
+										value={option4}
+										onChange={(e) => setOption4(e.target.value)}
 										cols={60}
 										rows={2}
 									/>
@@ -154,9 +177,7 @@ export const QuestionsForm = ({ onSubmit, isOpen, onClose }) => {
 							cols={60}
 							rows={5}
 							placeholder={
-								multipleChoice === 'true'
-									? 'Ex: Opção A'
-									: 'Resposta...'
+								multipleChoice === 'true' ? 'Ex: 1' : 'Resposta...'
 							}
 						/>
 					</Styled.TextArea>

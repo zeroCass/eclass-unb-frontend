@@ -1,17 +1,53 @@
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useContext, useEffect, useState } from 'react'
+import { getData } from '../../../../api'
+import { AuthContext } from '../../../../contexts/AuthContext/context'
+import { MyClasses } from '../MyClasses'
 import * as Styled from './styles'
 
-export const ModalContent = (modalContent) => {
-	const [classes, setClasses] = useState([])
-	const navigate = useNavigate()
+const fetchClasses = async (userID, userType) => {
+	const classes = await getData('classes')
+	const filteredClasses = classes.filter((classe) => {
+		if (userType === 3)
+			return classe.students.find((studentID) => studentID === userID)
+		if (userType === 2)
+			return classe.teachers.find((teacher) => teacher.id === userID)
+	})
+	return filteredClasses
+}
 
+export const ModalContent = (modalContent) => {
+	const authContext = useContext(AuthContext)
+	const { authState } = authContext
+	const [formattedClassData, setFormattedClassData] = useState([])
+
+	// return a formatted object
 	useEffect(() => {
-		fetch('classesDescription.json')
-			.then((res) => res.json())
-			.then((data) => setClasses(data))
-			.catch((error) => console.error(error))
-	}, [])
+		const fetch = async () => {
+			const data = await fetchClasses(authState.id, authState.userType)
+			if (data) {
+				const newData = data.map((item) => {
+					// set dataItem to correspond to the original data
+					const dataItem = data.find((data) => data.id === item.id)
+
+					//get the dates
+					const startTime = new Date(item.startTime)
+					const endTime = new Date(item.endTime)
+
+					return {
+						classID: item.id,
+						title: `${item.subject.name} - ${item.name}`,
+						description: `Professores: ${item?.teachers.map(
+							(teacher) => teacher.name,
+						)}`,
+						timeDate: `${startTime.getHours()}: ${startTime.getMinutes()} as ${endTime.getHours()}: ${endTime.getMinutes()}`,
+						dataItem,
+					}
+				})
+				setFormattedClassData(newData)
+			}
+		}
+		fetch()
+	}, [authState])
 
 	switch (modalContent) {
 		case 'Alterar Senha':
@@ -30,27 +66,7 @@ export const ModalContent = (modalContent) => {
 					</div>
 
 					<div className="info-div">
-						<ul>
-							{classes.map((classes) => (
-								<li key={classes.classID}>
-									<Styled.MyClass className="info-div">
-										<h4>
-											<button
-												onClick={() =>
-													navigate('/class-description', {
-														state: classes,
-													})
-												}
-											>
-												{classes.className}
-											</button>
-											- {classes.teacherName} ({classes.startTime} -
-											{classes.endTime})
-										</h4>
-									</Styled.MyClass>
-								</li>
-							))}
-						</ul>
+						<MyClasses formattedClassData={formattedClassData} />
 					</div>
 				</Styled.ModalsPerfil>
 			)

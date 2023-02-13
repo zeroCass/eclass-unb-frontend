@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
+import { getData } from '../../api'
 import { ItemsContent } from '../../components/ItemsContent'
 import { AuthContext } from '../../contexts/AuthContext/context'
 import { QuestionDetails } from './components/QuestionDetails'
@@ -23,27 +24,21 @@ export const Questions = () => {
 	const [isOpen, setIsOpen] = useState(false)
 	const [formattedQuestions, setFormattedQuestions] = useState([])
 	const [questionType, setQuestionType] = useState('discursive')
-	const shouldHasModal = userType !== 2
+	const shouldHasModal = userType !== 3
 
 	// load the data accordingly with the questionType
-	const fetchData = async () => {
+	const fetchQuestions = async () => {
 		const url =
 			questionType === 'discursive'
-				? './questions.json'
-				: './questionsMC.json'
-		return new Promise((resolve) => {
-			setTimeout(async () => {
-				const res = await fetch(url)
-				const data = await res.json()
-				resolve(data)
-			}, 2000)
-		})
+				? 'discursive-questions'
+				: 'multiple-questions'
+		return getData(url)
 	}
 
 	// handle the logic to calls the fetch data when mount and questionType changes
 	useEffect(() => {
 		setLoading(true)
-		fetchData()
+		fetchQuestions()
 			.then((res) => setData(res))
 			.catch((err) => setError(err.message || 'error!!!'))
 			.finally(() => setLoading(false))
@@ -54,12 +49,10 @@ export const Questions = () => {
 		if (data) {
 			const newData = data.map((item) => {
 				// set dataItem to correspond to the original data
-				const dataItem = data.find(
-					(data) => data.questionID === item.questionID,
-				)
+				const dataItem = data.find((data) => data.id === item.id)
 				return {
 					title: item.statement,
-					description: `Professor: ${item.teacherName}`,
+					description: `Professor: ${item.teacher}`,
 					dataItem,
 				}
 			})

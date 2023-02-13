@@ -27,24 +27,41 @@ export const ClassDescription = () => {
 	const navigate = useNavigate()
 	const location = useLocation()
 	const classData = location.state
-	const exams = classData?.exams || null
+
+	const startTime = new Date(classData.startTime)
+	const endTime = new Date(classData.endTime)
+	const exams = classData?.exams || []
+
+	console.log(classData)
+
+	const formattedTime = {
+		hour: '2-digit',
+		minute: '2-digit',
+		dateStyle: undefined,
+	}
 
 	const authContext = useContext(AuthContext)
 	const {
 		authState: { userType },
 	} = authContext
 
-	const shouldShowAddButton = userType !== 2
+	const shouldShowAddButton = userType !== 3
 
 	return (
 		<Styled.Container>
 			<div className="header">
-				<h1>{classData.className}</h1>
+				<h1>
+					{classData.subject.name} - {classData.name}
+				</h1>
 				<div className="description">
 					<p>
-						Horario das aulas: {classData.startTime} - {classData.endTime}
+						Horario das aulas:
+						{startTime.toLocaleDateString([], formattedTime)} -
+						{endTime.toLocaleDateString([], formattedTime)}
 					</p>
-					<p>Professor: {classData.teacherName}</p>
+					<p>
+						Professor: {classData.teachers.map((teacher) => teacher.name)}
+					</p>
 				</div>
 			</div>
 			<div className="content">
@@ -75,7 +92,7 @@ export const ClassDescription = () => {
 								/>
 							</ul>
 						))}
-					{!exams && (
+					{exams.length === 0 && (
 						<div>
 							<h2>Nao ha provas</h2>
 						</div>
@@ -86,8 +103,7 @@ export const ClassDescription = () => {
 								onClick={() =>
 									navigate('/exam/create', {
 										state: {
-											teacherID: classData.teacherID,
-											classID: classData.classID,
+											classID: classData.id,
 										},
 									})
 								}

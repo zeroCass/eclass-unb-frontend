@@ -1,29 +1,33 @@
+/* eslint-disable */
 import { useContext, useEffect, useState } from 'react'
+import { getData, putDataById } from '../../api'
 import { ItemsContent } from '../../components/ItemsContent'
 import { AuthContext } from '../../contexts/AuthContext/context'
 import { useAsync } from '../../hooks/useAsync'
 import { SubjectsForm } from './components/SubjectsForm/SubjectsForm'
 
-const fetchData = async () => {
-	return new Promise((resolve) => {
-		setTimeout(async () => {
-			const res = await fetch('./subjects.json')
-			const data = await res.json()
-			resolve(data)
-		}, 2000)
-	})
+const fetchSubjects = () => {
+	return getData('subjects')
+}
+
+const subscribeToSubject = (subjectID, teacherData) => {
+	const subjects = teacherData.subjects
+	subjects.push(subjectID)
+	console.log(subjects, teacherData)
+	putDataById('teacher', teacherData.id, { subjects: subjects })
 }
 
 export const Subjects = () => {
 	const authContext = useContext(AuthContext)
 	const {
 		authState: { userType },
+		authState,
 	} = authContext
 
-	const { execute, loading, data, error } = useAsync(fetchData)
+	const { execute, loading, data, error } = useAsync(fetchSubjects)
 	const [isOpen, setIsOpen] = useState(false)
 	const [formattedSubjectsData, setFormattedSubjectsData] = useState([])
-	const shouldHasModal = userType === 0
+	const shouldHasModal = userType === 1
 
 	useEffect(() => {
 		execute()
@@ -31,25 +35,31 @@ export const Subjects = () => {
 
 	useEffect(() => {
 		if (data) {
-			const newData = data.map((item) => ({
-				title: item.subjectName,
-				description: item.course,
-			}))
+			const newData = data.map((item) => {
+				const dataItem = data.find((data) => data.id === item.id)
+				return {
+					title: item.name,
+					description: item.description,
+					dataItem,
+				}
+			})
 			setFormattedSubjectsData(newData)
 		}
 	}, [data])
 
 	const itemButtons = [
 		{
-			label: 'Entrar',
-			onClick: () => console.log('Entrou em Turmas'),
+			label: 'Visualizar',
+			onClick: (subjectData) => console.log('visualizar', subjectData),
 		},
 	]
 	// if the user is a teacher, then extra button is rendered
-	userType === 1 &&
+	userType === 2 &&
 		itemButtons.push({
 			label: 'Vincular-se',
-			onClick: () => console.log('Vinculou-se em Turma'),
+			onClick: (subjectData) => {
+				subscribeToSubject(subjectData.id, authState)
+			},
 		})
 
 	return (
