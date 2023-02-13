@@ -20,9 +20,9 @@ export const HeaderMenu = () => {
 
 	const userName = authState.name || 'Usuario'
 	let userType = ''
-	if (authState.userType === 0) userType = 'Administrador(a)'
-	if (authState.userType === 1) userType = 'Professor(a)'
-	if (authState.userType === 2) userType = 'Aluno(a)'
+	if (authState.userType === 1) userType = 'Administrador(a)'
+	if (authState.userType === 2) userType = 'Professor(a)'
+	if (authState.userType === 3) userType = 'Aluno(a)'
 
 	return (
 		<Styled.Header>
@@ -58,7 +58,7 @@ export const HeaderMenu = () => {
 						</Link>
 					</li>
 					{/* render extra button for the ADM */}
-					{authState.userType === 0 && (
+					{authState.userType === 1 && (
 						<>
 							<li>
 								<Link to={'/students'}>

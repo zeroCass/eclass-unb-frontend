@@ -26,7 +26,7 @@ export const Classes = () => {
 	const [isOpen, setIsOpen] = useState(false)
 	const [formattedClassData, setFormattedClassData] = useState([])
 	// determines if the addButon and the modal should show up
-	const shouldHasModal = userType !== 2
+	const shouldHasModal = userType !== 3
 
 	// calls the useAsync execute function
 	useEffect(() => {
