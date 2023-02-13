@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.section`
+	position: relative;
 	width: 100vw;
 	height: auto;
 	& .header {
@@ -32,7 +33,7 @@ export const Container = styled.section`
 	.add-button-container {
 		z-index: 1;
 		position: absolute;
-		left: 110px;
+		left: 120px;
 		bottom: 0;
 		width: auto;
 		height: auto;
