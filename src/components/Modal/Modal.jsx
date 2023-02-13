@@ -28,6 +28,7 @@ export const Modal = ({
 							</button>
 						</Styled.ButtonContainer>
 					)}
+
 					{children}
 				</Styled.Modal>
 			</Styled.Overlay>
